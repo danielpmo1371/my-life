@@ -1,6 +1,6 @@
 import { DS } from "./DS";
 import styled from "styled-components";
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef, useEffect } from "react";
 
 const EditableField = ({
   value,
@@ -9,10 +9,33 @@ const EditableField = ({
   value: number;
   description: string;
 }) => {
+  const node = useRef(); //https://medium.com/@pitipatdop/little-neat-trick-to-capture-click-outside-with-react-hook-ba77c37c7e82
+
   const [showInput, showInputUpdate] = useState(false);
+
   const handleClick = useCallback(() => {
     showInputUpdate(!showInput);
   }, [showInput]);
+
+  const handleEnter = useCallback(() => {
+    showInputUpdate(!showInput);
+  }, [showInput]);
+
+  const handleKeys = useCallback(
+    (e) => {
+      if (e.keyCode === 13) handleEnter();
+    },
+    [handleEnter]
+  );
+
+  useEffect(() => {
+    // add when mounted
+    document.addEventListener("keydown", handleKeys);
+    // return function to be called when unmounted
+    return () => {
+      document.removeEventListener("keydown", handleKeys);
+    };
+  }, [handleKeys]);
 
   return showInput ? (
     <input type="text" value={value} placeholder={description} />
