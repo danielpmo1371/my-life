@@ -235,10 +235,14 @@ interface Expense {
   description: string;
 }
 const Budget = () => {
+
+  const seedValue: Expense[] = [{ expenseId: '1', yearlyAmount:1000, description: 'exmpale 01' }, 
+   { expenseId: '2', yearlyAmount:200, description: 'exmpale 02' }]; 
+
   const [entries, setEntries] = useState(() => {
     const saved = localStorage.getItem("budgetExpenses");
     const initialValue = saved && JSON.parse(saved);
-    return initialValue || "";
+    return initialValue || JSON.stringify(seedValue);
   });
 
   const entriesHandler = (updatedEntries: Expense[]) => {
