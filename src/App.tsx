@@ -76,9 +76,9 @@ const EditableField = ({
   );
 };
 
-const EditableExpense = ({ yearlyValue }: { yearlyValue: number }) => {
-  return <div style={{ display: "flex" }}></div>;
-};
+// const EditableExpense = ({ yearlyValue }: { yearlyValue: number }) => {
+//   return <div style={{ display: "flex" }}></div>;
+// };
 
 const Entries = ({
   entries,
@@ -240,9 +240,10 @@ const Budget = () => {
    { expenseId: '2', yearlyAmount:200, description: 'exmpale 02' }]; 
 
   const [entries, setEntries] = useState(() => {
-    const saved = localStorage.getItem("budgetExpenses");
-    const initialValue = saved && JSON.parse(saved);
-    return initialValue || JSON.stringify(seedValue);
+    // const saved = localStorage.getItem("budgetExpenses");
+    // const initialValue = saved && JSON.parse(saved);
+    // return initialValue || JSON.stringify(seedValue);
+   return seedValue;
   });
 
   const entriesHandler = (updatedEntries: Expense[]) => {
