@@ -1,9 +1,10 @@
 //tsx page component for projects
 import React from 'react';
 import { Project } from '../types/project';
+import ProjectCard from '@/components/ProjectCard';
 // import { ProjectCard } from './card';
 
-export default function Page() {
+export default function Projects() {
     let projects: Project[];
     let updateProjects: React.Dispatch<any>;
 
@@ -50,19 +51,16 @@ export default function Page() {
     ];
 
     return (
-        //placeholder for now
-        <div>
-            <h1>Projects</h1>
+        <div className="">
+        <h1>Projects</h1>
+        <div className="flex items-center space-x-4 mt-3">
+            {projects.map((project) => (
+                <ProjectCard
+                key={project.id}
+                project={project}
+                />
+                ))}
         </div>
-    )
-    // return (
-    //     <div className="projects-page">
-    //         {projects.map((project) => (
-    //             <ProjectCard
-    //                 key={project.id}
-    //                 project={project}
-    //             />
-    //         ))}
-    //     </div>
-    // );
+        </div>
+    );
 };
