@@ -21,14 +21,17 @@ export type Project = {
     name: string;
     description: string;
     status: string;
-    user_id: number;
-    user: User;
+    owner_id: number;
+    owner: User;
+    team: User[];
+    imageUrl: string;
     tasks: Task[];
 } & ProjectBaseType
 
 export type User = {
     name: string;
     email: string;
+    avatar: string;
 } & BaseType
 
 export type Task = {

@@ -1,0 +1,51 @@
+.project-card {
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
+
+.project-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.project-image {
+    width: 100%;
+    height: auto;
+}
+
+.project-description {
+    font-size: 14px;
+}
+
+.progress-bar {
+    width: 100%;
+    background-color: #ddd;
+}
+
+.progress {
+    height: 20px;
+    background-color: #4CAF50;
+}
+
+.project-status {
+    color: #888;
+    font-size: 12px;
+}
+
+.project-date {
+    font-size: 12px;
+}
+
+.team-members .member {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.project-actions button {
+    margin-right: 10px;
+}
