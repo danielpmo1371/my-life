@@ -1,46 +1,114 @@
-import React from 'react';
-import './ProjectCard.module.css';
-import { Project } from '@/pages/types/project';
+import React, { MouseEventHandler } from "react";
+import { Project, User } from "@/pages/types/project";
+import styled from "styled-components";
+import ThreeDots from "./ThreeDots";
 
-// const ProjectCard = (prop: { project: Project }) => {
-//   return (
-//     <div className="bg-white rounded-lg shadow-lg p-4">
-//       <h3 className="text-lg font-bold">{prop.project.name}</h3>
-//       <p className="text-gray-700">{prop.project.description}</p>
-//       <p className="text-gray-500 text-sm">Created: {prop.project.startDate}</p>
-//     </div>
-//   );
-// };
+const ProjectCardWrapper = styled.div`
+    width: 240px;
+    background-color: #5C469C;
+    border-radius: 0.5rem;
+    padding: 1rem; 
+    }`;
+
+const TeamMember: React.FC<{ member: User }> = ({ member }) => {
+  return (
+    <div className="flex m-2">
+      <img
+        src={member.avatar}
+        alt={member.name}
+        className="w-[30px] h-[30px] rounded-lg"
+      />
+      <span className="text-sm">{member.name}</span>
+    </div>
+  );
+};
+
+const ProjectImage = styled.img`
+  width: 100%;
+  height: 7rem;
+`;
+
+const Progress = styled.div`
+  height: 0.25rem;
+  background-color: #4caf50;
+`;
+
+const ProgressBar = styled.div`
+  height: 0.25rem;
+  background-color: #e0e0e0;
+`;
+
+const ProjectDescription = styled.p`
+  font-size: 0.875rem;
+`;
+
+const Title = styled.h2`
+  font-size: 1.25rem;
+  font-weight: 600;
+`;
+
+const Status = styled.p`
+  text-align: right;
+  font-size: 0.875rem;
+  padding-bottom: 0.5rem;
+  color: #4caf50;
+`;
+
+const TextXs = styled.p`
+  font-size: 0.75rem;
+`;
+
+const Flex = styled.div`
+  display: flex;
+`;
+
 interface ProjectCardProps {
   project: Project;
-  onView: () => void;
-  onEdit: () => void;
-  onDelete: () => void;
+  onView: MouseEventHandler<HTMLAnchorElement>;
+  onEdit: MouseEventHandler<HTMLAnchorElement>;
+  onDelete: MouseEventHandler<HTMLAnchorElement>;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, onView, onEdit, onDelete }) => {
-    const { name, team, imageUrl, description, progress, status, startDate } = project;
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  project,
+  onView,
+  onEdit,
+  onDelete,
+}) => {
+  const { name, team, imageUrl, description, progress, status, startDate } =
+    project;
 
-    return (
-        <div className="project-card">
-            <h2 className="project-title">{name}</h2>
-            <img src={imageUrl} alt="Project" className="project-image" />
-            <p className="project-description">{description}</p>
-            <div className="progress-bar">
-                <div className="progress" style={{ width: `${progress}%` }}></div>
-            </div>
-            <p className="project-status">{status}</p>
-            <p className="project-date">{startDate}</p>
-            <div className="team-members">
-                {team.map(member => <img key={member.email} src={member.avatar} alt={member.name} className="member" />)}
-            </div>
-            <div className="project-actions">
-                <button onClick={onView}>View</button>
-                <button onClick={onEdit}>Edit</button>
-                <button onClick={onDelete}>Delete</button>
-            </div>
-        </div>
-    );
+  return (
+    <ProjectCardWrapper>
+      <Flex style={{ justifyContent: "space-between" }}>
+        <Title>{name}</Title>
+
+        <Flex>
+          <Flex style={{ flexDirection: "column", alignSelf: "center" }}>
+            <TextXs>{startDate}</TextXs>
+            <Status>{status}</Status>
+          </Flex>
+          <ThreeDots
+            options={[
+              { name: "View", onClick: onView },
+              { name: "Edit", onClick: onEdit },
+              { name: "Delete", onClick: onDelete },
+            ]}
+          />
+        </Flex>
+      </Flex>
+      <ProjectImage src={imageUrl} alt="Project" />
+      <ProjectDescription>{description}</ProjectDescription>
+      <ProgressBar>
+        <Progress style={{ width: `${progress}%` }}></Progress>
+      </ProgressBar>
+      <Flex>
+        {team.map((member) => (
+          <TeamMember key={member.email} member={member}></TeamMember>
+        ))}
+      </Flex>
+    </ProjectCardWrapper>
+  );
 };
 
 export default ProjectCard;

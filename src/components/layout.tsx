@@ -11,7 +11,7 @@ export default function RootLayout({
   return (
       <div className={`${inter.className} flex flex-col`}>
         <NavBar/>
-        <div className="flex-grow py-6 px-12 bg-zinc-800 rounded-md mx-6 h-full">
+        <div className="flex-grow py-6 px-12 rounded-md mx-6" style={{borderColor: '#1D267D', borderWidth: '3px', height: '90vh'}}>
           {children}
         </div>
         </div>

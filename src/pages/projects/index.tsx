@@ -1,5 +1,3 @@
-//tsx page component for projects
-import React, { useEffect } from 'react';
 import { Project } from '../types/project';
 import ProjectCard from '@/components/ProjectCard';
 // import { ProjectCard } from './card';
@@ -8,7 +6,6 @@ export default function Projects() {
     let projects: Project[] = [];
     let updateProjects: React.Dispatch<any>;
 
-    useEffect(() => {
         projects = [
             {
                 id: 1,
@@ -16,7 +13,7 @@ export default function Projects() {
                 owner: {
                     id: 1,
                     name: "John",
-                    email: "J@g.c",
+                    email: "J@gs.c",
                     avatar: "https://i.pravatar.cc/300"
                 },
                 name: "Project 1",
@@ -26,7 +23,7 @@ export default function Projects() {
                 endDate: "2021-12-31",
                 budget: 1000000,
                 expenses: 500000,
-                progress: 0,
+                progress: 20,
                 tasks: [
                     {
                         id: 1,
@@ -54,7 +51,7 @@ export default function Projects() {
                     {
                         id: 1,
                         name: "John",
-                        email: "J@g.c",
+                        email: "J@sg.c",
                         avatar: "https://i.pravatar.cc/300"
                     },
                     {
@@ -67,7 +64,6 @@ export default function Projects() {
             },
         ];
         
-    }, []);
     return (
         <div className="">
         <h1>Projects</h1>
