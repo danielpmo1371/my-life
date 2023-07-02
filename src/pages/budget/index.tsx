@@ -1,11 +1,10 @@
-import React from 'react';
 
 export default function Budget() {
-    return 
+  return (
     <>
-        <h1>Budget</h1>
-    
+      <h1>Budget</h1>
     </>
+  );
 }
 // import { useCallback, useState, useRef, useEffect } from "react";
 // import styled from "styled-components";
