@@ -1,7 +1,8 @@
 import React, { MouseEventHandler } from "react";
-import { Project, User } from "@/pages/types/project";
+import { Project, User } from "@/types/project";
 import styled from "styled-components";
 import ThreeDots from "./ThreeDots";
+import Image from "next/image";
 
 const ProjectCardWrapper = styled.div`
     width: 240px;
@@ -13,7 +14,7 @@ const ProjectCardWrapper = styled.div`
 const TeamMember: React.FC<{ member: User }> = ({ member }) => {
   return (
     <div className="flex m-2">
-      <img
+    <Image
         src={member.avatar}
         alt={member.name}
         className="w-[30px] h-[30px] rounded-lg"

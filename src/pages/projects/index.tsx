@@ -1,4 +1,4 @@
-import { Project } from '../types/project';
+import { Project } from '../../types/project';
 import ProjectCard from '@/components/ProjectCard';
 // import { ProjectCard } from './card';
 
