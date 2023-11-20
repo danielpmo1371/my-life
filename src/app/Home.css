@@ -1,53 +1,67 @@
-.home-container {
-    padding: 20px;
-    font-family: 'Arial, sans-serif';
-    background: #f4f4f4;
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  h1 {
-    text-align: center;
-    color: #333;
-    font-family: 'Roboto, sans-serif';
-  }
-  
-  .card {
-    background: white;
-    padding: 20px;
-    margin: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    min-width: 25%;
-    flex-grow: 1;
-  }
-  
-  .card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .icon {
-    font-size: 24px;
-    color: #007bff;
-  }
-  
-  .card h2 {
-    color: #555;
-    font-family: 'Roboto, sans-serif';
-  }
-  
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  ul li a {
-    color: #007bff;
-    text-decoration: none;
-  }
+:root {
+  --primary-color: #0366d6; /* GitHub blue for links and icons */
+  --secondary-color: #f6f8fa; /* Light gray for card backgrounds */
+  --accent-color: lightgrey; /* Green for hover effects and buttons */
+  --text-color: #24292e; /* Almost black for primary text */
+  --background-color: #ffffff; /* Pure white for overall background */
+}
 
-  .card.dashboard {
-    width: 100%;
-  }
+.home-container {
+  padding: 20px;
+  font-family: 'Arial, sans-serif';
+  background: var(--background-color);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+h1 {
+  text-align: center;
+  color: var(--text-color);
+  font-family: 'Roboto, sans-serif';
+}
+
+.card {
+  background: var(--secondary-color);
+  color: var(--text-color);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  min-width: 25%;
+  flex-grow: 1;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  background: var(--accent-color);
+}
+
+.icon {
+  font-size: 24px;
+  color: var(--primary-color);
+}
+
+.card h2 {
+  color: var(--text-color);
+  font-family: 'Roboto, sans-serif';
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+ul li a:hover {
+  color: var(--accent-color);
+}
+
+.card.dashboard {
+  width: 100%;
+}
