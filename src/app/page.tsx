@@ -1,9 +1,10 @@
 import React from "react";
+import "./Home.css"; // Assuming you have a separate CSS file
 
 const Home = () => {
   return (
-    <div style={{ padding: "20px", fontFamily: "Arial, sans-serif" }}>
-      <h1 style={{ textAlign: "center" }}>My Main Idea File</h1>
+    <div className="home-container">
+      <h1>My Main Idea File</h1>
 
       <section>
         <h2>Personal Dashboard</h2>
