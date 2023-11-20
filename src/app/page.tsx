@@ -5,16 +5,16 @@ import {
   FaHeartbeat,
   FaBriefcase,
   FaUniversity,
-  FaBookOpen,
   FaPiggyBank,
   FaAsterisk,
 } from "react-icons/fa"; // Importing icons
 import { RiDashboard3Line } from "react-icons/ri";
+import Link from "next/link";
 
 const Home = () => {
   return (
     <>
-      <h1>My Main Idea File</h1>
+      <h1>Brain context canvas</h1>
       <div className="home-container">
         <div className="card dashboard">
           <RiDashboard3Line className="icon" />
@@ -27,22 +27,22 @@ const Home = () => {
           <h2>Links to Key Documents</h2>
           <ul>
             <li>
-              <a href="#budget">Budget</a>
+              <Link href="#budget">Budget</Link>
             </li>
             <li>
-              <a href="#weekly-schedule">Weekly Schedule</a>
+              <Link href="#weekly-schedule">Weekly Schedule</Link>
             </li>
             <li>
-              <a href="#goals">Goals</a>
+              <Link href="#goals">Goals</Link>
             </li>
             <li>
-              <a href="#projects">Projects</a>
+              <Link href="#projects">Projects</Link>
             </li>
             <li>
-              <a href="#to-do-lists">To-Do Lists</a>
+              <Link href="#to-do-lists">To-Do Lists</Link>
             </li>
             <li>
-              <a href="#important-contacts">Important Contacts</a>
+              <Link href="#important-contacts">Important Contacts</Link>
             </li>
           </ul>
         </div>
@@ -52,13 +52,13 @@ const Home = () => {
           <h2>Health and Wellness</h2>
           <ul>
             <li>
-              <a href="#fitness-plan">Fitness Plan</a>
+              <Link href="#fitness-plan">Fitness Plan</Link>
             </li>
             <li>
-              <a href="#meal-plans">Meal Plans</a>
+              <Link href="#meal-plans">Meal Plans</Link>
             </li>
             <li>
-              <a href="#medical-records">Medical Records</a>
+              <Link href="#medical-records">Medical Records</Link>
             </li>
           </ul>
         </div>
@@ -68,13 +68,13 @@ const Home = () => {
           <h2>Professional Development</h2>
           <ul>
             <li>
-              <a href="#career-goals">Career Goals</a>
+              <Link href="#career-goals">Career Goals</Link>
             </li>
             <li>
-              <a href="#skill-development">Skill Development</a>
+              <Link href="#skill-development">Skill Development</Link>
             </li>
             <li>
-              <a href="#resume-cv">Resume/CV</a>
+              <Link href="#resume-cv">Resume/CV</Link>
             </li>
           </ul>
         </div>
@@ -84,13 +84,13 @@ const Home = () => {
           <h2>Personal Development</h2>
           <ul>
             <li>
-              <a href="#reading-list">Reading List</a>
+              <Link href="#reading-list">Reading List</Link>
             </li>
             <li>
-              <a href="#learning-goals">Learning Goals</a>
+              <Link href="#learning-goals">Learning Goals</Link>
             </li>
             <li>
-              <a href="#journal-reflections">Journal/Reflections</a>
+              <Link href="#journal-reflections">Journal/Reflections</Link>
             </li>
           </ul>
         </div>
@@ -100,13 +100,13 @@ const Home = () => {
           <h2>Financial Planning</h2>
           <ul>
             <li>
-              <a href="#investment-portfolio">Investment Portfolio</a>
+              <Link href="#investment-portfolio">Investment Portfolio</Link>
             </li>
             <li>
-              <a href="#retirement-plan">Retirement Plan</a>
+              <Link href="#retirement-plan">Retirement Plan</Link>
             </li>
             <li>
-              <a href="#debt-management">Debt Management</a>
+              <Link href="#debt-management">Debt Management</Link>
             </li>
           </ul>
         </div>
@@ -116,13 +116,13 @@ const Home = () => {
           <h2>Miscellaneous</h2>
           <ul>
             <li>
-              <a href="#travel-plans">Travel Plans</a>
+              <Link href="#travel-plans">Travel Plans</Link>
             </li>
             <li>
-              <a href="#wish-list">Wish List</a>
+              <Link href="#wish-list">Wish List</Link>
             </li>
             <li>
-              <a href="#important-dates">Important Dates</a>
+              <Link href="#important-dates">Important Dates</Link>
             </li>
           </ul>
         </div>
