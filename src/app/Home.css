@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
 :root {
   --primary-color: #0366d6; /* GitHub blue for links and icons */
   --secondary-color: #f6f8fa; /* Light gray for card backgrounds */
@@ -6,9 +8,13 @@
   --background-color: #ffffff; /* Pure white for overall background */
 }
 
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
 .home-container {
   padding: 20px;
-  font-family: 'Arial, sans-serif';
+  /* font-family: 'Arial, sans-serif'; */
   background: var(--background-color);
   display: flex;
   flex-wrap: wrap;
@@ -17,7 +23,7 @@
 h1 {
   text-align: center;
   color: var(--text-color);
-  font-family: 'Roboto, sans-serif';
+  /* font-family: 'Roboto, sans-serif'; */
 }
 
 .card {
@@ -45,7 +51,7 @@ h1 {
 
 .card h2 {
   color: var(--text-color);
-  font-family: 'Roboto, sans-serif';
+  /* font-family: 'Roboto, sans-serif'; */
 }
 
 ul {
