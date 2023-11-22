@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import "./Home.css"; // Custom CSS file
 import {
   FaLink,
@@ -7,11 +8,19 @@ import {
   FaUniversity,
   FaPiggyBank,
   FaAsterisk,
+  FaCross,
+  FaTrash,
 } from "react-icons/fa"; // Importing icons
 import { RiDashboard3Line } from "react-icons/ri";
 import Link from "next/link";
+import useFocusStore from "./stores/focusStore";
+import useStore from "./stores/useStore";
 
 const Home = () => {
+  const [newItem, updateNewItem] = useState("new focus");
+  // const focusStore = useFocusStore();
+  const focusState = useStore(useFocusStore, (state) => state);
+
   return (
     <>
       <h1>Brain context canvas</h1>
@@ -20,6 +29,28 @@ const Home = () => {
           <RiDashboard3Line className="icon" />
           <h2>Personal Dashboard</h2>
           <p>Overview of current focuses, events, deadlines.</p>
+          <ul>
+            <li>Focus items</li>
+            {focusState?.focusItems.map((i) => (
+              <li key={i}>
+                {i}
+                <span
+                  style={{ margin: "5px" }}
+                  onClick={() => focusState.removeItem(i)}
+                >
+                  <FaTrash />
+                </span>
+              </li>
+            ))}
+          </ul>
+          <input
+            type="text"
+            onChange={(e) => updateNewItem(e.currentTarget.value)}
+            value={newItem}
+          />
+          <button type="button" onClick={() => focusState?.addItem(newItem)}>
+            Add
+          </button>
         </div>
 
         <div className="card doclinks">
