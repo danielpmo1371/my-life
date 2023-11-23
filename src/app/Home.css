@@ -12,6 +12,10 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
+.dashboard-sections > div {
+  padding: 15px;
+}
+
 .home-container {
   padding: 20px;
   /* font-family: 'Arial, sans-serif'; */

@@ -1,11 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { FaTrash } from "react-icons/fa";
 import { RiDashboard3Line } from "react-icons/ri";
-import useFocusStore from "./stores/focusStore";
-import useStore from "./stores/useStore";
 import { FocusItems } from "./FocusItems";
+import { TodoItems } from "./TodoItems";
 
 export default function Dashboard() {
   return (
@@ -15,7 +12,13 @@ export default function Dashboard() {
       <small style={{ margin: 0, padding: 0 }}>
         Overview of current focuses, events, deadlines.
       </small>
-      <FocusItems />
+      <div
+        style={{ display: "flex", flexDirection: "row", padding: "30px" }}
+        className="dashboard-sections"
+      >
+        <FocusItems />
+        <TodoItems />
+      </div>
     </div>
   );
 }

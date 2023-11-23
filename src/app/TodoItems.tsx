@@ -1,0 +1,59 @@
+import { useState } from "react";
+import { FaTrash } from "react-icons/fa";
+import useStore from "./stores/useStore";
+import useTodosStore, { Todo } from "./stores/todosStore";
+
+export function TodoItems() {
+  const [newItem, updateNewItem] = useState<Todo>({
+    title: "new todo",
+    index: 999,
+  });
+  const todosState = useStore(useTodosStore, (state) => state);
+
+  return (
+    <div style={{ flex: 1 }}>
+      <h4>Todo items</h4>
+      <ul>
+        {todosState?.todosItems.map((t) => (
+          <li
+            key={t.index}
+            style={{ border: " 2px solid blue", borderRadius: "3px" }}
+          >
+            [{t.index}] {t.title}
+            <span
+              style={{ margin: "5px" }}
+              onClick={() => todosState.removeItem(t)}
+            >
+              <FaTrash />
+            </span>
+          </li>
+        ))}
+      </ul>
+      <input
+        type="text"
+        onChange={(e) =>
+          updateNewItem({ ...newItem, title: e.currentTarget.value })
+        }
+        value={newItem.title}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") addTodo();
+        }}
+      />
+      <button type="button" onClick={() => addTodo()}>
+        Add
+      </button>
+    </div>
+  );
+
+  function addTodo(): void {
+    const allIndexes = todosState?.todosItems.map((x) => x.index);
+    const highestIndex = allIndexes?.sort((a, b) => b - a)[0] ?? 0;
+
+    const index = highestIndex + 1;
+
+    return todosState?.addItem({
+      ...newItem,
+      index,
+    });
+  }
+}
