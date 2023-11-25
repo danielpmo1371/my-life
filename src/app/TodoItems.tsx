@@ -3,6 +3,7 @@ import { FaTrash } from "react-icons/fa";
 import useStore from "./stores/useStore";
 import useTodosStore, { Todo } from "./stores/todosStore";
 import CustomButton from "@/components/CustomListItem";
+import { Draggable } from "react-drag-reorder";
 
 export function TodoItems() {
   const [newItem, updateNewItem] = useState<Todo>({
@@ -14,27 +15,31 @@ export function TodoItems() {
   return (
     <div style={{ flex: 1 }}>
       <h4>Todo items</h4>
-      <ul>
-        {todosState?.todosItems.map((t) => (
-          <li
-            key={t.index}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              margin: "10px",
-              alignItems: "start",
-            }}
-          >
-            <CustomButton title={`[${t.index}] ${t.title}`} />
-            <span
-              style={{ margin: "5px" }}
-              onClick={() => todosState.removeItem(t)}
+      {!todosState?.todosItems ? (
+        <div>loading...</div>
+      ) : (
+        <Draggable>
+          {todosState?.todosItems.map((t) => (
+            <div
+              key={t.index}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                margin: "10px",
+                alignItems: "start",
+              }}
             >
-              <FaTrash />
-            </span>
-          </li>
-        ))}
-      </ul>
+              <CustomButton title={`[${t.index}] ${t.title}`} />
+              <span
+                style={{ margin: "5px" }}
+                onClick={() => todosState.removeItem(t)}
+              >
+                <FaTrash />
+              </span>
+            </div>
+          ))}
+        </Draggable>
+      )}
       <input
         type="text"
         onChange={(e) =>

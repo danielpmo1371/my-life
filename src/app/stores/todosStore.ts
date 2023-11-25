@@ -17,7 +17,7 @@ interface TodosState {
 const useTodosStore = create<TodosState>()(
   persist<TodosState>(
     (set) => ({
-      todosItems: [],
+      todosItems: [{ index: 0, title: "loading" }],
       addItem: (item) =>
         set((state) => {
           console.log("adding item: ", item);
