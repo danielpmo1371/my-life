@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import useStore from "./stores/useStore";
 import useTodosStore, { Todo } from "./stores/todosStore";
+import CustomButton from "@/components/CustomListItem";
 
 export function TodoItems() {
   const [newItem, updateNewItem] = useState<Todo>({
@@ -17,9 +18,14 @@ export function TodoItems() {
         {todosState?.todosItems.map((t) => (
           <li
             key={t.index}
-            style={{ border: " 2px solid blue", borderRadius: "3px" }}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              margin: "10px",
+              alignItems: "start",
+            }}
           >
-            [{t.index}] {t.title}
+            <CustomButton title={`[${t.index}] ${t.title}`} />
             <span
               style={{ margin: "5px" }}
               onClick={() => todosState.removeItem(t)}
