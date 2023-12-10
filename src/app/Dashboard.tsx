@@ -3,6 +3,7 @@
 import { RiDashboard3Line } from "react-icons/ri";
 import { FocusItems } from "./FocusItems";
 import { TodoItems } from "./TodoItems";
+import ProjectItems from "./ProjectItems";
 
 export default function Dashboard() {
   return (
@@ -18,6 +19,7 @@ export default function Dashboard() {
       >
         <FocusItems />
         <TodoItems />
+        <ProjectItems />
       </div>
     </div>
   );
