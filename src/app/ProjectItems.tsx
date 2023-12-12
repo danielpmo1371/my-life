@@ -1,27 +1,51 @@
-import { useState } from "react";
+"use client";
+import { useEffect, useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import CustomButton from "@/components/CustomListItem";
 
 type Project = {
   title: string;
-  index: number;
+  order: string;
 };
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const getProjectsUrl = `${BASE_URL}api/project`;
+
+async function getData() {
+  return await fetch(getProjectsUrl).then(async (response) => {
+    return await response.json().then((data) => {
+      console.log(getProjectsUrl);
+      console.log(JSON.stringify(data));
+      return data;
+    });
+  });
+}
+
 export default function ProjectItems() {
+  const [data, setData] = useState([] as Project[]);
+
+  useEffect(() => {
+    getData().then((x) => {
+      console.log(x);
+      setData(x);
+    });
+  }, []);
+  console.log(JSON.stringify(data));
+
   const [newItem, updateNewItem] = useState<Project>({
     title: "new project",
-    index: 999,
+    order: "999",
   });
 
   const projectsState = {
     projectItems: [
       {
         title: "Prooj 1 ",
-        index: 1,
+        order: "1",
       },
       {
         title: "Second proj",
-        index: 2,
+        order: "2",
       },
     ],
   };
@@ -29,10 +53,11 @@ export default function ProjectItems() {
   return (
     <div style={{ flex: 1 }}>
       <h4>Project items</h4>
+      {/* <p>{JSON.stringify(data.current)}</p> */}
       <ul>
-        {projectsState?.projectItems.map((t) => (
+        {data?.map((t) => (
           <li
-            key={t.index}
+            key={t.order}
             style={{
               display: "flex",
               flexDirection: "row",
@@ -40,7 +65,7 @@ export default function ProjectItems() {
               alignItems: "start",
             }}
           >
-            <CustomButton title={`[${t.index}] ${t.title}`} />
+            <CustomButton title={`[${t.order}] ${t.title}`} />
             <span
               style={{ margin: "5px" }}
               onClick={() => console.log("projectsState.removeItem(t)")}
@@ -67,8 +92,8 @@ export default function ProjectItems() {
   );
 
   function addTodo(): void {
-    const allIndexes = projectsState?.projectItems.map((x) => x.index);
-    const highestIndex = allIndexes?.sort((a, b) => b - a)[0] ?? 0;
+    const allIndexes = projectsState?.projectItems.map((x) => x.order);
+    const highestIndex = allIndexes?.sort((a, b) => b.localeCompare(a))[0] ?? 0;
 
     const index = highestIndex + 1;
 
