@@ -1,11 +1,14 @@
 "use client";
 
+import { useUser } from "@auth0/nextjs-auth0/client";
 import { RiDashboard3Line } from "react-icons/ri";
 import { FocusItems } from "./FocusItems";
 import { TodoItems } from "./TodoItems";
 import ProjectItems from "./ProjectItems";
+import ProfileClient from "./components/ProfileClient";
 
 export default function Dashboard() {
+  const user = useUser();
   return (
     <div className="card dashboard">
       <RiDashboard3Line className="icon" />
@@ -13,6 +16,10 @@ export default function Dashboard() {
       <small style={{ margin: 0, padding: 0 }}>
         Overview of current focuses, events, deadlines.
       </small>
+      <a href="/api/auth/login">Login</a>
+      <a href="/api/auth/logout">Logout</a>
+      <ProfileClient />
+
       <div
         style={{ display: "flex", flexDirection: "row", padding: "30px" }}
         className="dashboard-sections"
