@@ -5,7 +5,7 @@ import { RiDashboard3Line } from "react-icons/ri";
 import { FocusItems } from "./FocusItems";
 import { TodoItems } from "./TodoItems";
 import ProjectItems from "./ProjectItems";
-import ProfileClient from "./components/ProfileClient";
+import ProfileClient from "./ProfileClient";
 
 export default function Dashboard() {
   const user = useUser();

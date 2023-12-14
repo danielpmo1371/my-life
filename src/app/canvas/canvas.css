@@ -1,0 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+:root {
+  --primary-color: #0366d6; /* GitHub blue for links and icons */
+  --secondary-color: #f6f8fa; /* Light gray for card backgrounds */
+  --accent-color: #FFC300; /* Grey for hover effects and buttons */
+  --text-color: #24292e; /* Almost black for primary text */
+  --background-color: #ffffff; /* Pure white for overall background */
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.dashboard-sections > div {
+  padding: 15px;
+}
+
+.home-container {
+  padding: 20px;
+  /* font-family: 'Arial, sans-serif'; */
+  background: var(--background-color);
+  display: flex;
+  flex-wrap: wrap;
+}
+
+h1 {
+  text-align: center;
+  color: var(--text-color);
+  /* font-family: 'Roboto, sans-serif'; */
+}
+
+.card {
+  background: var(--secondary-color);
+  color: var(--text-color);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  min-width: 25%;
+  flex-grow: 1;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  /* background: var(--accent-color); */
+}
+
+.icon {
+  font-size: 24px;
+  color: var(--primary-color);
+}
+
+.card h2 {
+  color: var(--text-color);
+  /* font-family: 'Roboto, sans-serif'; */
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li a {
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  padding: 2px 0; /* Adds padding for a better visual effect on hover */
+}
+
+ul li a:hover, ul li a:focus {
+  color: var(--accent-color);
+  text-decoration: underline; /* Adds an underline on hover */
+  font-weight: 500; /* Optional: Makes text slightly bolder on hover */
+}
+
+ul li {
+  margin-bottom: 8px; /* Adds a bit of space between list items */
+}
+
+/* Optional: Style for focus-visible for better keyboard navigation support */
+ul li a:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.card.dashboard {
+  width: 100%;
+}

@@ -2,14 +2,18 @@
 // MongoDB Playground
 // Use Ctrl+Space inside a snippet or a string literal to trigger completions.
 
-const database = 'local';
-const collection = 'projects';
+const database = "life";
+const collection = "projects";
 
 // The current database to use.
 use(database);
 
 // Create a new collection.
-db.createCollection(collection);
+// db.createCollection(collection)
+const projectsCount = db.getCollection(collection).count();
+
+// Print a message to the output window.
+console.log(`${projectsCount} projects`);
 
 // The prototype form to create a collection:
 /* db.createCollection( <name>,

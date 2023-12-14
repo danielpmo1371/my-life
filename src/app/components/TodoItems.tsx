@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
-import useStore from "./stores/useStore";
-import useTodosStore, { Todo } from "./stores/todosStore";
+import useStore from "../stores/useStore";
+import useTodosStore, { Todo } from "../stores/todosStore";
 import CustomButton from "@/components/CustomListItem";
 
 export function TodoItems() {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
-import useFocusStore from "./stores/focusStore";
-import useStore from "./stores/useStore";
+import useFocusStore from "../stores/focusStore";
+import useStore from "../stores/useStore";
 import CustomButton from "@/components/CustomListItem";
 
 export function FocusItems() {
