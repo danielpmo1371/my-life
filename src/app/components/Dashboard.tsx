@@ -16,9 +16,7 @@ export default function Dashboard() {
       <small style={{ margin: 0, padding: 0 }}>
         Overview of current focuses, events, deadlines.
       </small>
-      <a href="/api/auth/login">Login</a>
       <a href="/api/auth/logout">Logout</a>
-      <ProfileClient />
 
       <div
         style={{ display: "flex", flexDirection: "row", padding: "30px" }}

@@ -1,5 +1,6 @@
 import React from "react";
 import { FaCheckCircle, FaInfoCircle, FaRegCircle } from "react-icons/fa";
+import PillButton from "./PillButton";
 
 function CustomButton(props: {
   checked?: boolean;
@@ -26,12 +27,15 @@ function CustomButton(props: {
     // Add styles for the icon
   };
 
-  const titleStyle = {
+  const titleStyle: React.CSSProperties = {
     flex: 1,
-    height: "5px",
+    height: "18px",
     borderRadius: "5px",
     backgroundColor: "#grey", // Replace with the exact color code
     margin: "0 10px",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
     // Add styles for the slider track
   };
 
@@ -44,7 +48,7 @@ function CustomButton(props: {
   };
 
   return (
-    <div style={buttonStyle}>
+    <PillButton>
       <div style={iconStyle}>
         {type === "focus" ? (
           <FaInfoCircle />
@@ -54,10 +58,11 @@ function CustomButton(props: {
           <FaRegCircle />
         )}
       </div>{" "}
-      <div style={titleStyle}>{title}</div>
+      <div style={titleStyle} title={title}>
+        {title}
+      </div>
       <div style={crystalStyle}>{emoji ?? ""}</div>
-      {/* Replace with actual crystals */}
-    </div>
+    </PillButton>
   );
 }
 
