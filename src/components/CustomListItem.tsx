@@ -29,7 +29,7 @@ function CustomButton(props: {
 
   const titleStyle: React.CSSProperties = {
     flex: 1,
-    height: "18px",
+    height: "22px",
     borderRadius: "5px",
     backgroundColor: "#grey", // Replace with the exact color code
     margin: "0 10px",

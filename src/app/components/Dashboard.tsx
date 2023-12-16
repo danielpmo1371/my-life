@@ -5,7 +5,6 @@ import { RiDashboard3Line } from "react-icons/ri";
 import { FocusItems } from "./FocusItems";
 import { TodoItems } from "./TodoItems";
 import ProjectItems from "./ProjectItems";
-import ProfileClient from "./ProfileClient";
 
 export default function Dashboard() {
   const user = useUser();
@@ -16,7 +15,6 @@ export default function Dashboard() {
       <small style={{ margin: 0, padding: 0 }}>
         Overview of current focuses, events, deadlines.
       </small>
-      <a href="/api/auth/logout">Logout</a>
 
       <div
         style={{ display: "flex", flexDirection: "row", padding: "30px" }}
