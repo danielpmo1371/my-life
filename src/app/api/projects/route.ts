@@ -10,7 +10,7 @@ export async function GET(_req: any, res: { json: (arg0: any) => void }) {
     await prisma.$connect();
     const projects = await prisma.projects.findMany();
 
-    await prisma.$disconnect();
+    prisma.$disconnect();
     // return projects;
     return Response.json(projects);
   } catch (e) {
@@ -20,5 +20,18 @@ export async function GET(_req: any, res: { json: (arg0: any) => void }) {
 
 export async function POST(request: Request) {
   const res = await request.json();
+  try {
+    await prisma.$connect();
+
+    await prisma.projects.create({ data: res });
+
+    const projects = await prisma.projects.findMany();
+
+    prisma.$disconnect();
+    // return projects;
+    return Response.json(projects);
+  } catch (e) {
+    console.error(e);
+  }
   return Response.json({ res });
 }

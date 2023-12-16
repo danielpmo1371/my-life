@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import CustomButton from "@/components/CustomListItem";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 type Project = {
   title: string;
@@ -33,6 +34,7 @@ async function saveData(newProject: Project) {
 }
 
 export default function ProjectItems() {
+  const { user } = useUser();
   const [data, setData] = useState([] as Project[]);
 
   useEffect(() => {
@@ -44,6 +46,7 @@ export default function ProjectItems() {
   const [newItem, updateNewItem] = useState<Project>({
     title: "new project",
     order: "999",
+    ownerEmail: user?.email!,
   });
 
   const projectsState = {
@@ -62,7 +65,6 @@ export default function ProjectItems() {
   return (
     <div style={{ flex: 1 }}>
       <h4>Project items</h4>
-      {/* <p>{JSON.stringify(data.current)}</p> */}
       <ul>
         {data?.map((t) => (
           <li
@@ -101,15 +103,15 @@ export default function ProjectItems() {
   );
 
   function addTodo(): void {
-    const allIndexes = projectsState?.projectItems.map((x) => x.order);
+    const allIndexes = data?.map((x) => x.order);
     const highestIndex = allIndexes?.sort((a, b) => b.localeCompare(a))[0] ?? 0;
 
-    const index = highestIndex + 1;
+    const index = parseInt(highestIndex) + 1;
 
     saveData({
       ...newItem,
-      ownerEmail: "danielpmo@gmail.com",
-      order: index,
+      ownerEmail: user?.email!,
+      order: index.toString(),
     });
   }
 }
