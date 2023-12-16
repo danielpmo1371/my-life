@@ -5,6 +5,7 @@ import CustomButton from "@/components/CustomListItem";
 import { useUser } from "@auth0/nextjs-auth0/client";
 
 type Project = {
+  id?: string;
   title: string;
   order: string;
   ownerEmail: string;
@@ -13,10 +14,10 @@ type Project = {
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 const getProjectsUrl = `${BASE_URL}api/projects`;
 
-async function getData() {
+async function getData(setData: Dispatch<SetStateAction<Project[]>>) {
   return await fetch(getProjectsUrl).then(async (response) => {
     return await response.json().then((data) => {
-      return data;
+      setData(data);
     });
   });
 }
@@ -37,14 +38,28 @@ async function saveDataAndRefresh(
   });
 }
 
+async function deleteAndRefresh(
+  projToDelete: Project,
+  setData: Dispatch<SetStateAction<Project[]>>
+) {
+  return await fetch(getProjectsUrl, {
+    method: "DELETE",
+    body: JSON.stringify(projToDelete),
+  }).then(async (response) => {
+    return await response.json().then((data) => {
+      console.log(`updated from del resp: ${JSON.stringify(data)}`);
+      setData(data);
+      return data;
+    });
+  });
+}
+
 export default function ProjectItems() {
   const { user } = useUser();
   const [data, setData] = useState([] as Project[]);
 
   useEffect(() => {
-    getData().then((x) => {
-      setData(x);
-    });
+    getData(setData);
   }, []);
 
   const [newItem, updateNewItem] = useState<Project>({
@@ -52,19 +67,6 @@ export default function ProjectItems() {
     order: "999",
     ownerEmail: user?.email!,
   });
-
-  const projectsState = {
-    projectItems: [
-      {
-        title: "Prooj 1 ",
-        order: "1",
-      },
-      {
-        title: "Second proj",
-        order: "2",
-      },
-    ],
-  };
 
   return (
     <div style={{ flex: 1 }}>
@@ -83,7 +85,7 @@ export default function ProjectItems() {
             <CustomButton title={`[${t.order}] ${t.title}`} />
             <span
               style={{ margin: "5px" }}
-              onClick={() => console.log("projectsState.removeItem(t)")}
+              onClick={() => deleteAndRefresh(t, setData)}
             >
               <FaTrash />
             </span>
