@@ -7,8 +7,9 @@ import ProfessionalDevelopment from "../components/ProfessionalDevelopment";
 import PersonalDevelopment from "../components/PersonalDevelopment";
 import Miscelaneous from "../components/Miscelaneous";
 import PillButton from "@/components/PillButton";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 
-const Home = () => {
+const Home = withPageAuthRequired(() => {
   return (
     <>
       <div
@@ -33,6 +34,6 @@ const Home = () => {
       </div>
     </>
   );
-};
+});
 
 export default Home;
