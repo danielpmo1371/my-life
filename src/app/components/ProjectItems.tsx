@@ -9,7 +9,7 @@ type Project = {
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-const getProjectsUrl = `${BASE_URL}api/project`;
+const getProjectsUrl = `${BASE_URL}api/projects`;
 
 async function getData() {
   return await fetch(getProjectsUrl).then(async (response) => {
