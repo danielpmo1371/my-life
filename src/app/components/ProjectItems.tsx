@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import CustomButton from "@/components/CustomListItem";
 import { useUser } from "@auth0/nextjs-auth0/client";
@@ -21,13 +21,17 @@ async function getData() {
   });
 }
 
-async function saveData(newProject: Project) {
+async function saveDataAndRefresh(
+  newProject: Project,
+  setData: Dispatch<SetStateAction<Project[]>>
+) {
   return await fetch(getProjectsUrl, {
     method: "POST",
     body: JSON.stringify(newProject),
   }).then(async (response) => {
     return await response.json().then((data) => {
       console.log(JSON.stringify(data));
+      setData(data);
       return data;
     });
   });
@@ -108,10 +112,13 @@ export default function ProjectItems() {
 
     const index = parseInt(highestIndex) + 1;
 
-    saveData({
-      ...newItem,
-      ownerEmail: user?.email!,
-      order: index.toString(),
-    });
+    saveDataAndRefresh(
+      {
+        ...newItem,
+        ownerEmail: user?.email!,
+        order: index.toString(),
+      },
+      setData
+    );
   }
 }
