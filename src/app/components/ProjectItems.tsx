@@ -6,6 +6,7 @@ import CustomButton from "@/components/CustomListItem";
 type Project = {
   title: string;
   order: string;
+  ownerEmail: string;
 };
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -14,7 +15,17 @@ const getProjectsUrl = `${BASE_URL}api/projects`;
 async function getData() {
   return await fetch(getProjectsUrl).then(async (response) => {
     return await response.json().then((data) => {
-      console.log(getProjectsUrl);
+      return data;
+    });
+  });
+}
+
+async function saveData(newProject: Project) {
+  return await fetch(getProjectsUrl, {
+    method: "POST",
+    body: JSON.stringify(newProject),
+  }).then(async (response) => {
+    return await response.json().then((data) => {
       console.log(JSON.stringify(data));
       return data;
     });
@@ -26,11 +37,9 @@ export default function ProjectItems() {
 
   useEffect(() => {
     getData().then((x) => {
-      console.log(x);
       setData(x);
     });
   }, []);
-  console.log(JSON.stringify(data));
 
   const [newItem, updateNewItem] = useState<Project>({
     title: "new project",
@@ -97,9 +106,10 @@ export default function ProjectItems() {
 
     const index = highestIndex + 1;
 
-    // return projectsState?.addItem({
-    //   ...newItem,
-    //   index,
-    // });
+    saveData({
+      ...newItem,
+      ownerEmail: "danielpmo@gmail.com",
+      order: index,
+    });
   }
 }
