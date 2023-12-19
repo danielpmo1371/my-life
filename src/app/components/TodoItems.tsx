@@ -1,23 +1,41 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import useStore from "../stores/useStore";
-import useTodosStore, { Todo } from "../stores/todosStore";
 import CustomButton from "@/components/CustomListItem";
+import { getCrudFor } from "@/next_cst/crudClient";
+import { useUser } from "@auth0/nextjs-auth0/client";
+
+type Todo = {
+  id?: string;
+  title: string;
+  order: string;
+  ownerEmail: string;
+};
 
 export function TodoItems() {
+  const { user } = useUser();
   const [newItem, updateNewItem] = useState<Todo>({
     title: "new todo",
-    index: 999,
+    order: "999",
+    ownerEmail: user?.email!,
   });
-  const todosState = useStore(useTodosStore, (state) => state);
+  const [data, setData] = useState<Todo[]>([]);
+  const { getData, saveDataAndRefresh, deleteAndRefresh } = getCrudFor<Todo>(
+    "todos",
+    true
+  );
+
+  useEffect(() => {
+    getData(setData);
+  }, []);
 
   return (
     <div style={{ flex: 1 }}>
       <h4>Todo items</h4>
       <ul>
-        {todosState?.todosItems.map((t) => (
+        {data.map((t) => (
           <li
-            key={t.index}
+            key={t.order}
             style={{
               display: "flex",
               flexDirection: "row",
@@ -25,10 +43,10 @@ export function TodoItems() {
               alignItems: "start",
             }}
           >
-            <CustomButton title={`[${t.index}] ${t.title}`} />
+            <CustomButton title={`[${t.order}] ${t.title}`} />
             <span
               style={{ margin: "5px" }}
-              onClick={() => todosState.removeItem(t)}
+              onClick={() => deleteAndRefresh(t, setData)}
             >
               <FaTrash />
             </span>
@@ -52,14 +70,18 @@ export function TodoItems() {
   );
 
   function addTodo(): void {
-    const allIndexes = todosState?.todosItems.map((x) => x.index);
+    const allIndexes = data.map((x) => x.order);
     const highestIndex = allIndexes?.sort((a, b) => b - a)[0] ?? 0;
 
-    const index = highestIndex + 1;
+    const index = parseInt(highestIndex) + 1;
 
-    return todosState?.addItem({
-      ...newItem,
-      index,
-    });
+    saveDataAndRefresh(
+      {
+        ...newItem,
+        order: index.toString(),
+        ownerEmail: user?.email!,
+      },
+      setData
+    );
   }
 }
