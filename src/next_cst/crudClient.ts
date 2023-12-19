@@ -25,6 +25,7 @@ export function getCrudFor<T>(
           output(`JSON received from ${stringifyJSON(data)}`, enableOutputs);
           output(`setting data`, enableOutputs);
           setData(data);
+          return data;
         });
       });
     },
@@ -50,14 +51,14 @@ export function getCrudFor<T>(
     },
 
     deleteAndRefresh: async function (
-      projToDelete: T,
+      entityToDelete: T,
       setData: Dispatch<SetStateAction<T[]>>
     ) {
       output(`starting deleteAndRefresh`, enableOutputs);
       output(`starting call to ${getProjectsUrl}`, enableOutputs);
       return await fetch(getProjectsUrl, {
         method: "DELETE",
-        body: JSON.stringify(projToDelete),
+        body: JSON.stringify(entityToDelete),
       }).then(async (response) => {
         output(`response: ${JSON.stringify(response)}.`, enableOutputs);
         output(`parsing JSON.`, enableOutputs);
