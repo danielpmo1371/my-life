@@ -11,9 +11,6 @@ type Project = {
   ownerEmail: string;
 };
 
-const { getData, saveDataAndRefresh, deleteAndRefresh } =
-  getCrudFor<Project>("projects");
-
 export default function ProjectItems() {
   const { user } = useUser();
 
@@ -32,20 +29,4 @@ export default function ProjectItems() {
       </div>
     )
   );
-
-  function addProject(): void {
-    const allIndexes = data?.map((x) => x.order);
-    const highestIndex = allIndexes?.sort((a, b) => b.localeCompare(a))[0] ?? 0;
-
-    const index = parseInt(highestIndex) + 1;
-
-    saveDataAndRefresh(
-      {
-        ...newItem,
-        ownerEmail: user?.email!,
-        order: index.toString(),
-      },
-      setData
-    );
-  }
 }
