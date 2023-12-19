@@ -1,9 +1,8 @@
 "use client";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import { FaTrash } from "react-icons/fa";
-import CustomButton from "@/components/CustomListItem";
+import { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { getCrudFor } from "@/next_cst/crudClient";
+import PillListOfItems from "./PillListOfItems";
 
 type Project = {
   id?: string;
@@ -17,59 +16,24 @@ const { getData, saveDataAndRefresh, deleteAndRefresh } =
 
 export default function ProjectItems() {
   const { user } = useUser();
-  const [data, setData] = useState([] as Project[]);
 
-  useEffect(() => {
-    getData(setData);
-  }, []);
-
-  const [newItem, updateNewItem] = useState<Project>({
-    title: "new project",
-    order: "999",
-    ownerEmail: user?.email!,
-  });
+  const state = useState<Project[]>([]);
+  const crudClient = getCrudFor<Project>("projects", true);
 
   return (
-    <div style={{ flex: 1 }}>
-      <h4>Projects</h4>
-      <ul>
-        {data?.map((t) => (
-          <li
-            key={t.order}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              margin: "10px",
-              alignItems: "start",
-            }}
-          >
-            <CustomButton title={`[${t.order}] ${t.title}`} />
-            <span
-              style={{ margin: "5px" }}
-              onClick={() => deleteAndRefresh(t, setData)}
-            >
-              <FaTrash />
-            </span>
-          </li>
-        ))}
-      </ul>
-      <input
-        type="text"
-        onChange={(e) =>
-          updateNewItem({ ...newItem, title: e.currentTarget.value })
-        }
-        value={newItem.title}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") addTodo();
-        }}
-      />
-      <button type="button" onClick={() => addTodo()}>
-        Add
-      </button>
-    </div>
+    user && (
+      <div style={{ flex: 1 }}>
+        <h4>Projects</h4>
+        <PillListOfItems<Project>
+          crudClient={crudClient}
+          user={user}
+          state={state}
+        />
+      </div>
+    )
   );
 
-  function addTodo(): void {
+  function addProject(): void {
     const allIndexes = data?.map((x) => x.order);
     const highestIndex = allIndexes?.sort((a, b) => b.localeCompare(a))[0] ?? 0;
 

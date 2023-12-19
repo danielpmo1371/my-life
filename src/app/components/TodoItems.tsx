@@ -1,7 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { FaTrash } from "react-icons/fa";
-import useStore from "../stores/useStore";
-import CustomButton from "@/components/CustomListItem";
+import { useState } from "react";
 import { getCrudFor } from "@/next_cst/crudClient";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import PillListOfItems from "./PillListOfItems";
