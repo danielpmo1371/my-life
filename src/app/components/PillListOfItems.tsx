@@ -2,6 +2,7 @@ import CustomButton from "@/components/CustomListItem";
 import { BaseDBType, CrudClientType, UserProfile } from "@/next_cst/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
+import "./PillListOfItems.css";
 
 type PillListOfItemsProps<T> = {
   crudClient: CrudClientType<T>;
@@ -15,6 +16,11 @@ export default function PillListOfItems<T extends BaseDBType>(
   const { crudClient, user, state } = props;
   const { getData, saveDataAndRefresh, deleteAndRefresh } = crudClient;
   const [data, setData] = state;
+  const [loading, setLoading] = useState<{
+    del: { [key: string]: boolean };
+    get: boolean;
+    save: boolean;
+  }>({ del: {}, get: false, save: false });
 
   const [newItem, updateNewItem] = useState<BaseDBType>({
     title: "new todo",
@@ -23,12 +29,13 @@ export default function PillListOfItems<T extends BaseDBType>(
   });
 
   useEffect(() => {
-    getData(setData);
+    setLoading({ ...loading, get: true });
+    getData(setData).then(() => setLoading({ ...loading, get: false }));
   }, []);
 
   function addItem(): void {
     const allIndexes = data.map((x) => x.order);
-    const highestIndex = allIndexes?.sort((a, b) => b - a)[0] ?? 0;
+    const highestIndex = allIndexes?.sort((a, b) => b.localeCompare(a))[0] ?? 0;
 
     const index = parseInt(highestIndex) + 1;
 
@@ -44,6 +51,7 @@ export default function PillListOfItems<T extends BaseDBType>(
 
   return (
     <>
+      {loading.get && <p className="flash">Refreshing</p>}
       <ul>
         {data.map((t) => (
           <li
@@ -58,9 +66,21 @@ export default function PillListOfItems<T extends BaseDBType>(
             <CustomButton title={`[${t.order}] ${t.title}`} />
             <span
               style={{ margin: "5px" }}
-              onClick={() => deleteAndRefresh(t, setData)}
+              onClick={() => {
+                setLoading({
+                  ...loading,
+                  del: { ...loading.del, [t.order]: true },
+                });
+                deleteAndRefresh(t, setData).then(() => {
+                  setLoading({
+                    ...loading,
+                    del: { ...loading.del, [t.order]: false },
+                  });
+                });
+              }}
             >
               <FaTrash />
+              {loading.del[t.order] && <p className="flash">...</p>}
             </span>
           </li>
         ))}

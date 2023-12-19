@@ -1,0 +1,8 @@
+@keyframes flashColor {
+    0%, 100% { color: whitesmoke; }
+    50% { color: black; }
+}
+
+p.flash {
+    animation: flashColor 1s infinite;
+}
