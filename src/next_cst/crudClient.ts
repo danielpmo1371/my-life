@@ -9,11 +9,9 @@ export function getCrudFor<T>(
   apiRoute: string,
   enableOutputs: boolean = false
 ) {
-  const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
-  const getProjectsUrl = `${BASE_URL}api/${apiRoute}`;
+  const getProjectsUrl = `api/${apiRoute}`;
 
   return {
-    BASE_URL,
     getProjectsUrl,
     getData: async function (setData: Dispatch<SetStateAction<T[]>>) {
       output(`starting getData`, enableOutputs);
