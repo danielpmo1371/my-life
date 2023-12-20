@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import useFocusStore from "../stores/focusStore";
 import useStore from "../stores/useStore";
-import CustomButton from "@/components/CustomListItem";
+import ListItem from "@/components/CustomListItem";
 
 export function FocusItems() {
   const [newItem, updateNewItem] = useState("new focus");
@@ -22,7 +22,7 @@ export function FocusItems() {
               alignItems: "start",
             }}
           >
-            <CustomButton title={`${i}`} type="focus" />
+            <ListItem title={`${i}`} type="focus" />
             <span
               style={{ margin: "5px" }}
               onClick={() => focusState.removeItem(i)}

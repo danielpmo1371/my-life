@@ -1,4 +1,4 @@
-import CustomButton from "@/components/CustomListItem";
+import ListItem from "@/components/CustomListItem";
 import { BaseDBType, CrudClientType, UserProfile } from "@/next_cst/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
@@ -59,13 +59,17 @@ export default function PillListOfItems<T extends BaseDBType>(
             style={{
               display: "flex",
               flexDirection: "row",
-              margin: "10px",
-              alignItems: "start",
+              margin: "7px",
+              alignItems: "center",
             }}
           >
-            <CustomButton title={`[${t.order}] ${t.title}`} />
+            <ListItem title={`[${t.order}] ${t.title}`} />
             <span
-              style={{ margin: "5px" }}
+              style={{
+                margin: "5px",
+                alignItems: "center",
+                alignSelf: "center",
+              }}
               onClick={() => {
                 setLoading({
                   ...loading,
@@ -80,8 +84,15 @@ export default function PillListOfItems<T extends BaseDBType>(
               }}
             >
               <FaTrash />
-              {loading.del[t.order] && <p className="flash">...</p>}
             </span>
+            {(true || loading.del[t.order]) && (
+              <p
+                className="flash"
+                style={{ alignItems: "center", alignSelf: "center" }}
+              >
+                ...
+              </p>
+            )}
           </li>
         ))}
       </ul>

@@ -2,7 +2,7 @@ import React from "react";
 import { FaCheckCircle, FaInfoCircle, FaRegCircle } from "react-icons/fa";
 import PillButton from "./PillButton";
 
-function CustomButton(props: {
+function ListItem(props: {
   checked?: boolean;
   emoji?: string;
   title: string;
@@ -10,41 +10,19 @@ function CustomButton(props: {
 }) {
   const { checked, emoji, title, type } = props;
 
-  const buttonStyle = {
-    display: "flex",
-    // alignItems: "center",
-    // backgroundColor: getRandomBlueShade(), // Replace with the exact color code
-    borderRadius: "20px",
-    padding: "10px 20px",
-    maxWidth: "200px",
-    fontColor: "white",
-    // margin: "auto",
-    boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)", // Adjust shadow as needed
-  };
-
   const iconStyle = {
-    marginRight: "15px",
-    // Add styles for the icon
+    marginRight: "0px",
   };
 
   const titleStyle: React.CSSProperties = {
     flex: 1,
     height: "22px",
     borderRadius: "5px",
-    backgroundColor: "#grey", // Replace with the exact color code
+    backgroundColor: "#grey",
     margin: "0 10px",
     overflow: "hidden",
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
-    // Add styles for the slider track
-  };
-
-  const sliderThumbStyle = {
-    // Add styles for the slider thumb
-  };
-
-  const crystalStyle = {
-    // Add styles for the crystals
   };
 
   return (
@@ -61,7 +39,7 @@ function CustomButton(props: {
       <div style={titleStyle} title={title}>
         {title}
       </div>
-      <div style={crystalStyle}>{emoji ?? ""}</div>
+      <div>{emoji ?? ""}</div>
     </PillButton>
   );
 }
@@ -89,4 +67,4 @@ function getRandomBlueShade() {
 
 //   return color;
 // }
-export default CustomButton;
+export default ListItem;
