@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
 export type CrudClientType<T> = {
-  BASE_URL: string | undefined;
   getProjectsUrl: string;
   getData: (setData: Dispatch<SetStateAction<T[]>>) => Promise<any>;
   saveDataAndRefresh: (
