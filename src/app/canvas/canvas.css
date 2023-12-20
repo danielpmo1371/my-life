@@ -89,3 +89,14 @@ ul li a:focus-visible {
 .card.dashboard {
   width: 100%;
 }
+
+.hide {
+  display: inline-block;
+  max-height: 0px;
+  overflow: hidden;
+  transition: max-height 0.2s ease-in-out;
+}
+
+.text-with-hidden-explanation:hover .hide {
+  max-height: 100%;
+}
