@@ -1,4 +1,4 @@
-import ListItem from "@/components/CustomListItem";
+import ListItem from "@/components/ListItem";
 import { BaseDBType, CrudClientType, UserProfile } from "@/next_cst/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";

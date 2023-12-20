@@ -2,7 +2,7 @@ import { useState } from "react";
 import { FaTrash } from "react-icons/fa";
 import useFocusStore from "../stores/focusStore";
 import useStore from "../stores/useStore";
-import ListItem from "@/components/CustomListItem";
+import ListItem from "@/components/ListItem";
 
 export function FocusItems() {
   const [newItem, updateNewItem] = useState("new focus");
