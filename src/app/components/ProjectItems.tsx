@@ -25,6 +25,7 @@ export default function ProjectItems() {
           crudClient={crudClient}
           user={user}
           state={state}
+          typeOfListItem="project"
         />
       </div>
     )

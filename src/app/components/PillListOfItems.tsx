@@ -1,4 +1,4 @@
-import ListItem from "@/components/ListItem";
+import ListItem, { ListItemType } from "@/components/ListItem";
 import { BaseDBType, CrudClientType, UserProfile } from "@/next_cst/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaTrash } from "react-icons/fa";
@@ -8,12 +8,13 @@ type PillListOfItemsProps<T> = {
   crudClient: CrudClientType<T>;
   user: UserProfile;
   state: [T[], Dispatch<SetStateAction<T[]>>];
+  typeOfListItem: ListItemType;
 };
 
 export default function PillListOfItems<T extends BaseDBType>(
   props: PillListOfItemsProps<T>
 ) {
-  const { crudClient, user, state } = props;
+  const { crudClient, user, state, typeOfListItem } = props;
   const { getData, saveDataAndRefresh, deleteAndRefresh } = crudClient;
   const [data, setData] = state;
   const [loading, setLoading] = useState<{
@@ -63,7 +64,7 @@ export default function PillListOfItems<T extends BaseDBType>(
               alignItems: "center",
             }}
           >
-            <ListItem title={`[${t.order}] ${t.title}`} />
+            <ListItem title={`[${t.order}] ${t.title}`} type={typeOfListItem} />
             <span
               style={{
                 margin: "5px",
@@ -85,7 +86,7 @@ export default function PillListOfItems<T extends BaseDBType>(
             >
               <FaTrash />
             </span>
-            {(true || loading.del[t.order]) && (
+            {loading.del[t.order] && (
               <p
                 className="flash"
                 style={{ alignItems: "center", alignSelf: "center" }}

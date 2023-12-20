@@ -24,6 +24,7 @@ export function TodoItems() {
           crudClient={crudClient}
           user={user}
           state={state}
+          typeOfListItem="todo"
         />
       </div>
     )

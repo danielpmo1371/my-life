@@ -1,12 +1,19 @@
 import React from "react";
-import { FaCheckCircle, FaInfoCircle, FaRegCircle } from "react-icons/fa";
+import {
+  FaCheckCircle,
+  FaInfoCircle,
+  FaProjectDiagram,
+  FaRegCircle,
+} from "react-icons/fa";
 import PillButton from "./PillButton";
+
+export type ListItemType = "focus" | "todo" | "project";
 
 function ListItem(props: {
   checked?: boolean;
   emoji?: string;
   title: string;
-  type?: "focus" | "todo";
+  type?: ListItemType;
 }) {
   const { checked, emoji, title, type } = props;
 
@@ -30,6 +37,8 @@ function ListItem(props: {
       <div style={iconStyle}>
         {type === "focus" ? (
           <FaInfoCircle />
+        ) : type === "project" ? (
+          <FaProjectDiagram />
         ) : checked ? (
           <FaCheckCircle />
         ) : (
