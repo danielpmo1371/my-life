@@ -17,7 +17,12 @@ export default function Dashboard() {
       </small>
 
       <div
-        style={{ display: "flex", flexDirection: "row", padding: "30px" }}
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          padding: "30px",
+          flexWrap: "wrap",
+        }}
         className="dashboard-sections"
       >
         <MantraItems />

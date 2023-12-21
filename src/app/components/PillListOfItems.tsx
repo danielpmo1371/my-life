@@ -24,7 +24,7 @@ export default function PillListOfItems<T extends BaseDBType>(
   }>({ del: {}, get: false, save: false });
 
   const [newItem, updateNewItem] = useState<BaseDBType>({
-    title: "new todo",
+    title: "new item",
     order: "999",
     ownerEmail: user?.email!,
   });
@@ -107,7 +107,12 @@ export default function PillListOfItems<T extends BaseDBType>(
           if (e.key === "Enter") addItem();
         }}
       />
-      <button type="button" onClick={() => addItem()}>
+      <button
+        type="button"
+        className="button-10"
+        role="button"
+        onClick={() => addItem()}
+      >
         Add
       </button>
     </>
