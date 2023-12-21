@@ -13,7 +13,7 @@ body {
 }
 
 .dashboard-sections > div {
-  padding: 15px;
+  padding: 0 15px;
 }
 
 .home-container {
@@ -117,6 +117,9 @@ ul li a:focus-visible {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  margin: 5px;
+  margin-left: auto;
+
 }
 
 .button-10:focus {

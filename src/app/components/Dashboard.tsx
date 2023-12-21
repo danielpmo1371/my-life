@@ -20,7 +20,6 @@ export default function Dashboard() {
         style={{
           display: "flex",
           flexDirection: "row",
-          padding: "30px",
           flexWrap: "wrap",
         }}
         className="dashboard-sections"
