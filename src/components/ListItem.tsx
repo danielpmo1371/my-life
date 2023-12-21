@@ -7,7 +7,7 @@ import {
 } from "react-icons/fa";
 import PillButton from "./PillButton";
 
-export type ListItemType = "focus" | "todo" | "project";
+export type ListItemType = "mantra" | "todo" | "project";
 
 function ListItem(props: {
   checked?: boolean;

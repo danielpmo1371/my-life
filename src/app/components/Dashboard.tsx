@@ -2,7 +2,7 @@
 
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { RiDashboard3Line } from "react-icons/ri";
-import { FocusItems } from "./FocusItems";
+import { MantraItems } from "./FocusItems";
 import { TodoItems } from "./TodoItems";
 import ProjectItems from "./ProjectItems";
 
@@ -20,7 +20,7 @@ export default function Dashboard() {
         style={{ display: "flex", flexDirection: "row", padding: "30px" }}
         className="dashboard-sections"
       >
-        <FocusItems />
+        <MantraItems />
         <TodoItems />
         <ProjectItems />
       </div>

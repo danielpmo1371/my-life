@@ -23,3 +23,10 @@ model todo {
   order    String
   ownerEmail String @default("no-email")
 }
+
+model mantras {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  title    String
+  order    String
+  ownerEmail String @default("no-email")
+}
