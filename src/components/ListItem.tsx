@@ -35,7 +35,7 @@ function ListItem(props: {
   return (
     <PillButton>
       <div style={iconStyle}>
-        {type === "focus" ? (
+        {type === "mantra" ? (
           <FaInfoCircle />
         ) : type === "project" ? (
           <FaProjectDiagram />
