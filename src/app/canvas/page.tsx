@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import "./canvas.css"; // Custom CSS file
+// import "../../components/Input.css";
 import Dashboard from "../components/Dashboard";
 import LinkToDocuments from "../components/LinkToDocuments";
 import ProfessionalDevelopment from "../components/ProfessionalDevelopment";

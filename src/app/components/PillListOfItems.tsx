@@ -24,7 +24,7 @@ export default function PillListOfItems<T extends BaseDBType>(
   }>({ del: {}, get: false, save: false });
 
   const [newItem, updateNewItem] = useState<BaseDBType>({
-    title: "new item",
+    title: "",
     order: "999",
     ownerEmail: user?.email!,
   });
@@ -97,16 +97,26 @@ export default function PillListOfItems<T extends BaseDBType>(
           </li>
         ))}
       </ul>
-      <input
-        type="text"
-        onChange={(e) =>
-          updateNewItem({ ...newItem, title: e.currentTarget.value })
-        }
-        value={newItem.title}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") addItem();
-        }}
-      />
+      <div>
+        <label htmlFor="inp" className="inp">
+          <p></p>
+          <input
+            type="text"
+            id="inp"
+            placeholder="&nbsp;"
+            onChange={(e) =>
+              updateNewItem({ ...newItem, title: e.currentTarget.value })
+            }
+            value={newItem.title}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") addItem();
+            }}
+          />
+          <span className="label">New item</span>
+          <span className="focus-bg"></span>
+        </label>
+      </div>
+
       <button
         type="button"
         className="button-10"
