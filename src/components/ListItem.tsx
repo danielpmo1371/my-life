@@ -9,7 +9,7 @@ import PillButton from "./PillButton";
 
 export type ListItemType = "mantra" | "todo" | "project";
 
-function ListItem(props: {
+function PillListItem(props: {
   checked?: boolean;
   emoji?: string;
   title: string;
@@ -33,7 +33,7 @@ function ListItem(props: {
   };
 
   return (
-    <PillButton>
+    <PillButton style={{ maxWidth: "80%" }}>
       <div style={iconStyle}>
         {type === "mantra" ? (
           <FaInfoCircle />
@@ -76,4 +76,4 @@ function getRandomBlueShade() {
 
 //   return color;
 // }
-export default ListItem;
+export default PillListItem;

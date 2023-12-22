@@ -1,8 +1,9 @@
-import ListItem, { ListItemType } from "@/components/ListItem";
+import PillListItem, { ListItemType } from "@/components/ListItem";
 import { BaseDBType, CrudClientType, UserProfile } from "@/next_cst/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import "./PillListOfItems.css";
+import useEditModalStore from "../stores/editModalStore";
 
 type PillListOfItemsProps<T> = {
   crudClient: CrudClientType<T>;
@@ -28,6 +29,8 @@ export default function PillListOfItems<T extends BaseDBType>(
     order: "999",
     ownerEmail: user?.email!,
   });
+
+  const { openModal, setModalChildComponent } = useEditModalStore();
 
   useEffect(() => {
     setLoading({ ...loading, get: true });
@@ -64,10 +67,13 @@ export default function PillListOfItems<T extends BaseDBType>(
               alignItems: "center",
             }}
           >
-            <ListItem title={`[${t.order}] ${t.title}`} type={typeOfListItem} />
+            <PillListItem
+              title={`[${t.order}] ${t.title}`}
+              type={typeOfListItem}
+            />
             <span
               style={{
-                margin: "5px",
+                margin: "10px",
                 alignItems: "center",
                 alignSelf: "center",
               }}
@@ -94,6 +100,12 @@ export default function PillListOfItems<T extends BaseDBType>(
                 ...
               </p>
             )}
+            <FaEdit
+              onClick={() => {
+                setModalChildComponent(<div>Hello world</div>);
+                openModal();
+              }}
+            />
           </li>
         ))}
       </ul>
