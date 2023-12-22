@@ -2,10 +2,12 @@
 import { getSession } from "@auth0/nextjs-auth0";
 import { PrismaClient } from "@prisma/client";
 
-export function getCrudRestApi(dbEntityName: string) {
+export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
   const prisma = new PrismaClient({
     log: ["query", "info", "warn", "error"],
   });
+
+  const prismaEntity = prisma[dbEntityName] as any;
 
   const getUserFromSession = async () => {
     const session = await getSession();
@@ -19,7 +21,7 @@ export function getCrudRestApi(dbEntityName: string) {
 
     if (!user) return;
 
-    return await prisma[dbEntityName].findMany({
+    return await prismaEntity.findMany({
       where: { ownerEmail: { equals: user.email } },
     });
   };
@@ -49,9 +51,9 @@ export function getCrudRestApi(dbEntityName: string) {
       try {
         await prisma.$connect();
 
-        await prisma[dbEntityName].create({ data: res });
+        await prismaEntity.create({ data: res });
 
-        const dbResponse = await prisma[dbEntityName].findMany({
+        const dbResponse = await prismaEntity.findMany({
           where: { ownerEmail: { equals: user.email } },
         });
 
@@ -75,9 +77,9 @@ export function getCrudRestApi(dbEntityName: string) {
       try {
         await prisma.$connect();
 
-        await prisma[dbEntityName].delete({ where: { id: res.id } });
+        await prismaEntity.delete({ where: { id: res.id } });
 
-        const dbResponse = await prisma[dbEntityName].findMany({
+        const dbResponse = await prismaEntity.findMany({
           where: { ownerEmail: { equals: user.email } },
         });
         prisma.$disconnect();
