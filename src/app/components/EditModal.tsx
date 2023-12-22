@@ -1,8 +1,24 @@
 import { FaWindowClose } from "react-icons/fa";
 import useEditModalStore from "../stores/editModalStore";
+import { useEffect } from "react";
 
 export function EditModal() {
   const { isOpen, closeModal, modalChildComponent } = useEditModalStore();
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    };
+
+    // Adding event listener
+    window.addEventListener("keydown", handleEscape);
+
+    // Cleanup event listener
+    return () => window.removeEventListener("keydown", handleEscape);
+  }, [closeModal]);
+
   return (
     isOpen && (
       <div
