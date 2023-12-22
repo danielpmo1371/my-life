@@ -5,6 +5,7 @@ import { RiDashboard3Line } from "react-icons/ri";
 import { MantraItems } from "./FocusItems";
 import { TodoItems } from "./TodoItems";
 import ProjectItems from "./ProjectItems";
+import { HighLevelGoals } from "./HighLevelGoals";
 
 export default function Dashboard() {
   const user = useUser();
@@ -24,6 +25,7 @@ export default function Dashboard() {
         }}
         className="dashboard-sections"
       >
+        <HighLevelGoals />
         <MantraItems />
         <TodoItems />
         <ProjectItems />
