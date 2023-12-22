@@ -6,6 +6,7 @@ import {
   FaRegCircle,
 } from "react-icons/fa";
 import PillButton from "./PillButton";
+import useEditModalStore from "@/app/stores/editModalStore";
 
 export type ListItemType = "mantra" | "todo" | "project";
 
@@ -16,6 +17,7 @@ function PillListItem(props: {
   type?: ListItemType;
 }) {
   const { checked, emoji, title, type } = props;
+  const { setModalChildComponent, openModal } = useEditModalStore();
 
   const iconStyle = {
     marginRight: "0px",
@@ -44,8 +46,15 @@ function PillListItem(props: {
         ) : (
           <FaRegCircle />
         )}
-      </div>{" "}
-      <div style={titleStyle} title={title}>
+      </div>
+      <div
+        style={titleStyle}
+        title={title}
+        onClick={() => {
+          setModalChildComponent(<h4>{title}</h4>);
+          openModal();
+        }}
+      >
         {title}
       </div>
       <div>{emoji ?? ""}</div>
