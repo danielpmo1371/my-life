@@ -37,13 +37,13 @@ export default function PillListOfItems<T extends BaseDBType>(
     getData(setData).then(() => setLoading({ ...loading, get: false }));
   }, []);
 
-  function addItem(): void {
+  async function addItem() {
     const allIndexes = data.map((x) => x.order);
     const highestIndex = allIndexes?.sort((a, b) => b.localeCompare(a))[0] ?? 0;
 
     const index = parseInt(highestIndex) + 1;
 
-    saveDataAndRefresh(
+    const result = await saveDataAndRefresh(
       {
         ...newItem,
         order: index.toString(),
@@ -51,6 +51,8 @@ export default function PillListOfItems<T extends BaseDBType>(
       } as T,
       setData
     );
+    updateNewItem({ ...newItem, title: "" });
+    return result;
   }
 
   return (
@@ -129,14 +131,44 @@ export default function PillListOfItems<T extends BaseDBType>(
         </label>
       </div>
 
-      <button
-        type="button"
-        className="button-10"
-        role="button"
-        onClick={() => addItem()}
-      >
-        Add
-      </button>
+      {!loading.save && (
+        <button
+          type="button"
+          className="button-10"
+          role="button"
+          onClick={() => {
+            setLoading({
+              ...loading,
+              save: true,
+            });
+            addItem().then(() => {
+              setLoading({
+                ...loading,
+                save: false,
+              });
+              updateNewItem({ ...newItem, title: "" });
+            });
+          }}
+          disabled={loading.save ? true : false}
+        >
+          Add
+        </button>
+      )}
+      {loading.save && (
+        <p
+          className="flash"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+            alignSelf: "end",
+            margin: "5px",
+            marginLeft: "auto",
+          }}
+        >
+          ...
+        </p>
+      )}
     </>
   );
 }

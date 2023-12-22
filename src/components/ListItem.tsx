@@ -51,7 +51,7 @@ function PillListItem(props: {
         style={titleStyle}
         title={title}
         onClick={() => {
-          setModalChildComponent(<h4>{title}</h4>);
+          setModalChildComponent(<p style={{ fontSize: "28px" }}>{title}</p>);
           openModal();
         }}
       >
