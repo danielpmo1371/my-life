@@ -4,6 +4,7 @@ import React, { HTMLAttributes, ReactNode, ReactPropTypes } from "react";
 const PillButton = ({
   children,
   style,
+  onClick,
 }: {
   children: ReactNode;
 } & HTMLAttributes<HTMLDivElement>) => {
@@ -19,7 +20,11 @@ const PillButton = ({
     boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.25)", // Adjust shadow as needed
   };
 
-  return <div style={{ ...buttonStyle, ...style }}>{children}</div>;
+  return (
+    <div style={{ ...buttonStyle, ...style }} onClick={onClick}>
+      {children}
+    </div>
+  );
 };
 
 export default PillButton;

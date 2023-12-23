@@ -31,7 +31,8 @@ const useSectionsStore = create<SectionsState>()(
             sectionsToShow: [...get().sectionsToShow, item],
           });
       },
-      showSection: (item: SectionsKeys) => true,
+      showSection: (item: SectionsKeys) =>
+        get().sectionsToShow.some((s) => s === item),
     }),
     {
       name: "sections-storage", // name of the item in the storage (must be unique)
