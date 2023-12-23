@@ -55,6 +55,20 @@ export default function PillListOfItems<T extends BaseDBType>(
     return result;
   }
 
+  const saveItem = () => {
+    setLoading({
+      ...loading,
+      save: true,
+    });
+    addItem().then(() => {
+      setLoading({
+        ...loading,
+        save: false,
+      });
+      updateNewItem({ ...newItem, title: "" });
+    });
+  };
+
   return (
     <>
       {loading.get && <p className="flash">Refreshing</p>}
@@ -123,7 +137,7 @@ export default function PillListOfItems<T extends BaseDBType>(
             }
             value={newItem.title}
             onKeyDown={(e) => {
-              if (e.key === "Enter") addItem();
+              if (e.key === "Enter") saveItem();
             }}
           />
           <span className="label">New item</span>
@@ -136,19 +150,7 @@ export default function PillListOfItems<T extends BaseDBType>(
           type="button"
           className="button-10"
           role="button"
-          onClick={() => {
-            setLoading({
-              ...loading,
-              save: true,
-            });
-            addItem().then(() => {
-              setLoading({
-                ...loading,
-                save: false,
-              });
-              updateNewItem({ ...newItem, title: "" });
-            });
-          }}
+          onClick={saveItem}
           disabled={loading.save ? true : false}
         >
           Add
