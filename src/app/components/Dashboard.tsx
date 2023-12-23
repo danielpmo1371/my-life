@@ -37,6 +37,7 @@ export default function Dashboard() {
             flexDirection: "row",
             alignItems: "center",
             alignSelf: "center",
+            scale: 0.6,
           }}
         >
           {Sections.map((s) => (
