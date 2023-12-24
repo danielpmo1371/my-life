@@ -3,7 +3,7 @@ import { BaseDBType, CrudClientType, UserProfile } from "@/next_cst/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import "./PillListOfItems.css";
-import useModalStore from "../stores/editModalStore";
+import useModalStore from "../stores/modalStore";
 import AdvancedEditView from "./AdvancedEditView";
 
 type PillListOfItemsProps<T> = {

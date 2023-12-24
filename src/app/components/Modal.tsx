@@ -1,5 +1,5 @@
 import { FaWindowClose } from "react-icons/fa";
-import useModalStore from "../stores/editModalStore";
+import useModalStore from "../stores/modalStore";
 import { useEffect } from "react";
 
 export function Modal() {

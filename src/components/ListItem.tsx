@@ -6,7 +6,7 @@ import {
   FaRegCircle,
 } from "react-icons/fa";
 import PillButton from "./PillButton";
-import useModalStore from "@/app/stores/editModalStore";
+import useModalStore from "@/app/stores/modalStore";
 
 export type ListItemType = "mantra" | "todo" | "project" | "highLevelGoals";
 
