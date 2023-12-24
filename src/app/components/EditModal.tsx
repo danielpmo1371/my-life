@@ -1,9 +1,9 @@
 import { FaWindowClose } from "react-icons/fa";
-import useEditModalStore from "../stores/editModalStore";
+import useModalStore from "../stores/editModalStore";
 import { useEffect } from "react";
 
-export function EditModal() {
-  const { isOpen, closeModal, modalChildComponent } = useEditModalStore();
+export function Modal() {
+  const { isOpen, closeModal, modalChildComponent, title } = useModalStore();
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -43,7 +43,7 @@ export function EditModal() {
           }}
         >
           <div style={{ margin: "20px" }}>
-            <h3>Edit</h3>
+            <h3>{title}</h3>
           </div>
           <div style={{ margin: "20px" }}>
             <FaWindowClose onClick={() => closeModal()} />

@@ -3,7 +3,7 @@ import { BaseDBType, CrudClientType, UserProfile } from "@/next_cst/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import "./PillListOfItems.css";
-import useEditModalStore from "../stores/editModalStore";
+import useModalStore from "../stores/editModalStore";
 import AdvancedEditView from "./AdvancedEditView";
 
 type PillListOfItemsProps<T> = {
@@ -31,7 +31,7 @@ export default function PillListOfItems<T extends BaseDBType>(
     ownerEmail: user?.email!,
   });
 
-  const { openModal, setModalChildComponent } = useEditModalStore();
+  const { openModal, setModalChildComponent } = useModalStore();
 
   useEffect(() => {
     setLoading({ ...loading, get: true });

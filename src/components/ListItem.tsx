@@ -6,7 +6,7 @@ import {
   FaRegCircle,
 } from "react-icons/fa";
 import PillButton from "./PillButton";
-import useEditModalStore from "@/app/stores/editModalStore";
+import useModalStore from "@/app/stores/editModalStore";
 
 export type ListItemType = "mantra" | "todo" | "project" | "highLevelGoals";
 
@@ -17,7 +17,7 @@ function PillListItem(props: {
   type?: ListItemType;
 }) {
   const { checked, emoji, title, type } = props;
-  const { setModalChildComponent, openModal } = useEditModalStore();
+  const { setModalChildComponent, openModal } = useModalStore();
 
   const iconStyle = {
     marginRight: "0px",

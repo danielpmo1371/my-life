@@ -9,12 +9,12 @@ import PersonalDevelopment from "../components/PersonalDevelopment";
 import Miscelaneous from "../components/Miscelaneous";
 import PillButton from "@/components/PillButton";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
-import { EditModal } from "../components/EditModal";
+import { Modal } from "../components/EditModal";
 
 const Home = withPageAuthRequired(() => {
   return (
     <>
-      <EditModal />
+      <Modal />
       <div
         style={{
           display: "flex",
