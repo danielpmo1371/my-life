@@ -38,6 +38,7 @@ export default function Dashboard() {
             alignItems: "center",
             alignSelf: "center",
             scale: 0.6,
+            flexWrap: "wrap",
           }}
         >
           {Sections.map((s) => (

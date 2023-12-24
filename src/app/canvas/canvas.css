@@ -218,5 +218,6 @@ ul li a:focus-visible {
   }
   .dashboard-sections > div {
     padding: 3px;
+    max-width: 100%;
   }
 }
