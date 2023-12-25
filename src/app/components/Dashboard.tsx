@@ -11,6 +11,7 @@ import useSectionsStore, {
   SectionsKeys,
 } from "../stores/sectionTogglesStore";
 import PillButton from "@/components/PillButton";
+import WishListItems from "./WishListItems";
 
 export default function Dashboard() {
   const { showSection, toggleSection } = useSectionsStore();
@@ -72,6 +73,7 @@ export default function Dashboard() {
         {showSection("mantras") && <MantraItems />}
         {showSection("todos") && <TodoItems />}
         {showSection("projects") && <ProjectItems />}
+        {showSection("wishList") && <WishListItems />}
       </div>
     </div>
   );

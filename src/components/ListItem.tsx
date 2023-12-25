@@ -8,7 +8,12 @@ import {
 import PillButton from "./PillButton";
 import useModalStore from "@/app/stores/modalStore";
 
-export type ListItemType = "mantra" | "todo" | "project" | "highLevelGoals";
+export type ListItemType =
+  | "mantra"
+  | "todo"
+  | "project"
+  | "highLevelGoals"
+  | "wishList";
 
 function PillListItem(props: {
   checked?: boolean;
