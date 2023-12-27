@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useState } from "react";
+import "./GenericEditComponent.css";
 
 const GenericEditComponent = ({ inputObject }: { inputObject: object }) => {
   const [formData, setFormData] = useState(inputObject);
@@ -19,7 +20,7 @@ const GenericEditComponent = ({ inputObject }: { inputObject: object }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="generic-edit-form">
       {Object.keys(inputObject).map((key) => (
         <div key={key}>
           <label>
