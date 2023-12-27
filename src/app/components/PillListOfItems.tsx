@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import "./PillListOfItems.css";
 import useModalStore from "../stores/modalStore";
-import AdvancedEditView from "./AdvancedEditView";
+import TabbedEditComponent from "./TabbedEditComponent";
 
 type PillListOfItemsProps<T> = {
   crudClient: CrudClientType<T>;
@@ -121,7 +121,7 @@ export default function PillListOfItems<T extends BaseDBType>(
             <FaEdit
               onClick={() => {
                 setModalChildComponent(
-                  <AdvancedEditView originalValue={t} apiEntity={apiRoute} />
+                  <TabbedEditComponent originalValue={t} apiEntity={apiRoute} />
                 );
                 openModal();
               }}

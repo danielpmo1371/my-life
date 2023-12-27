@@ -1,0 +1,38 @@
+/* Styles for the Tab Navigation */
+.tab-navigation {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+}
+
+.tab-navigation button {
+    padding: 10px 15px;
+    border: none;
+    border-bottom: 3px solid transparent;
+    background-color: transparent;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.tab-navigation button:hover {
+    border-bottom: 3px solid #007bff;
+}
+
+.tab-navigation .active {
+    border-bottom: 3px solid #007bff;
+}
+
+/* Styles for the Tab Content */
+.tab-content {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+/* Custom styles for the placeholder components */
+/* You can remove or modify these as per your actual components */
+.tab-content > div {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
