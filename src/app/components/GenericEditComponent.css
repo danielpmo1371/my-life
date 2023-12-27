@@ -1,6 +1,6 @@
 /* Styles for the Generic Edit Form Component */
 .generic-edit-form {
-    max-width: 500px;
+    max-width: 700px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f8f8f8;
@@ -9,17 +9,21 @@
 }
 
 .generic-edit-form div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     margin-bottom: 15px;
 }
 
 .generic-edit-form label {
-    display: block;
-    margin-bottom: 5px;
+    margin-right: 10px;
+    white-space: nowrap;
     font-weight: bold;
 }
 
 .generic-edit-form input[type='text'] {
-    width: 100%;
+    flex-grow: 1;
+    min-width: 160px; /* Adjust this value based on your typical content width */
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
