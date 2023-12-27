@@ -33,12 +33,12 @@ export default function AdvancedEditView({
     <>
       <textarea
         style={{
-          width: "80%",
-          height: "80%",
+          width: "70%",
+          height: "50%",
           boxSizing: "border-box",
           overflow: "scroll",
         }}
-        rows={30}
+        rows={20}
         value={editVal}
         onChange={(e) => {
           return setEditVal(e.currentTarget.value);
