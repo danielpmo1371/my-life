@@ -5,13 +5,14 @@ const output = (output: unknown, enableConsoleLogging: boolean) => {
   enableConsoleLogging && console.log(output);
 };
 
-export function getCrudFor<T>(
+export function getApiCrudClientFor<T extends { id?: string }>(
   apiRoute: string,
   enableOutputs: boolean = false
 ) {
   const getProjectsUrl = `api/${apiRoute}`;
 
   return {
+    apiRoute,
     getProjectsUrl,
     getData: async function (setData: Dispatch<SetStateAction<T[]>>) {
       output(`starting getData`, enableOutputs);

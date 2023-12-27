@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { getCrudFor } from "@/next_cst/crudClient";
+import { getApiCrudClientFor } from "@/next_cst/crudClient";
 import PillListOfItems from "./PillListOfItems";
 
 type WishListItem = {
@@ -15,7 +15,7 @@ export default function WishListItems() {
   const { user } = useUser();
 
   const state = useState<WishListItem[]>([]);
-  const crudClient = getCrudFor<WishListItem>("wishListItems", true);
+  const crudClient = getApiCrudClientFor<WishListItem>("wishListItems", true);
 
   return (
     user && (

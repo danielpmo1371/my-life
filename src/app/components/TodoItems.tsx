@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getCrudFor } from "@/next_cst/crudClient";
+import { getApiCrudClientFor } from "@/next_cst/crudClient";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import PillListOfItems from "./PillListOfItems";
 
@@ -14,7 +14,7 @@ export function TodoItems() {
   const { user } = useUser();
 
   const state = useState<Todo[]>([]);
-  const crudClient = getCrudFor<Todo>("todos", true);
+  const crudClient = getApiCrudClientFor<Todo>("todos", true);
 
   return (
     user && (

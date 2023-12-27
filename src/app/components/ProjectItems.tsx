@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { getCrudFor } from "@/next_cst/crudClient";
+import { getApiCrudClientFor } from "@/next_cst/crudClient";
 import PillListOfItems from "./PillListOfItems";
 
 type Project = {
@@ -15,7 +15,7 @@ export default function ProjectItems() {
   const { user } = useUser();
 
   const state = useState<Project[]>([]);
-  const crudClient = getCrudFor<Project>("projects", true);
+  const crudClient = getApiCrudClientFor<Project>("projects", true);
 
   return (
     user && (

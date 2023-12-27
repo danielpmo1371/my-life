@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { getCrudFor } from "@/next_cst/crudClient";
+import { getApiCrudClientFor } from "@/next_cst/crudClient";
 import PillListOfItems from "./PillListOfItems";
 type Mantra = {
   id?: string;
@@ -13,7 +13,7 @@ export function MantraItems() {
   const { user } = useUser();
 
   const state = useState<Mantra[]>([]);
-  const crudClient = getCrudFor<Mantra>("mantras", true);
+  const crudClient = getApiCrudClientFor<Mantra>("mantras", true);
 
   return (
     user && (

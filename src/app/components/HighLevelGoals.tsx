@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { getCrudFor } from "@/next_cst/crudClient";
+import { getApiCrudClientFor } from "@/next_cst/crudClient";
 import PillListOfItems from "./PillListOfItems";
 type HighLevelGoal = {
   id?: string;
@@ -13,7 +13,7 @@ export function HighLevelGoals() {
   const { user } = useUser();
 
   const state = useState<HighLevelGoal[]>([]);
-  const crudClient = getCrudFor<HighLevelGoal>("highLevelGoals", true);
+  const crudClient = getApiCrudClientFor<HighLevelGoal>("highLevelGoals", true);
 
   return (
     user && (
