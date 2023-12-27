@@ -15,7 +15,12 @@ const TabbedEditComponent = ({
   const renderTabContent = () => {
     switch (activeTab) {
       case "edit":
-        return <GenericEditComponent inputObject={originalValue} />;
+        return (
+          <GenericEditComponent
+            originalValue={originalValue}
+            apiEntity={apiEntity}
+          />
+        );
       case "advanced":
         return (
           <AdvancedEditView

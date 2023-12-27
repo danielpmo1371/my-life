@@ -1,8 +1,17 @@
 import React, { ChangeEvent, useState } from "react";
 import "./GenericEditComponent.css";
+import { getApiCrudClientFor } from "@/next_cst/crudClient";
 
-const GenericEditComponent = ({ inputObject }: { inputObject: object }) => {
-  const [formData, setFormData] = useState(inputObject);
+const GenericEditComponent = ({
+  originalValue,
+  apiEntity,
+}: {
+  originalValue: any;
+  apiEntity: string;
+}) => {
+  const { saveDataAndRefresh } = getApiCrudClientFor(apiEntity, true);
+  const [formData, setFormData] = useState(originalValue);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (!e.currentTarget) return;
@@ -12,7 +21,11 @@ const GenericEditComponent = ({ inputObject }: { inputObject: object }) => {
   const handleSubmit = async () => {
     // Call the update API (stub)
     try {
-      await updateAPI(formData);
+      setLoading(true);
+      console.log("saving");
+      saveDataAndRefresh(formData, (d) =>
+        console.log("saved, response:", d)
+      ).then(() => setLoading(false));
       //   onUpdate(); // Callback to inform parent component of update
     } catch (error) {
       console.error("Error updating data:", error);
@@ -20,8 +33,8 @@ const GenericEditComponent = ({ inputObject }: { inputObject: object }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="generic-edit-form">
-      {Object.keys(inputObject).map((key) => (
+    <form className="generic-edit-form">
+      {Object.keys(originalValue).map((key) => (
         <div key={key}>
           <label>
             {key.charAt(0).toUpperCase() + key.slice(1)}:
@@ -34,7 +47,27 @@ const GenericEditComponent = ({ inputObject }: { inputObject: object }) => {
           </label>
         </div>
       ))}
-      <button type="button">Update</button>
+
+      {!loading && (
+        <button type="button" onClick={handleSubmit}>
+          Update
+        </button>
+      )}
+      {loading && (
+        <p
+          className="flash"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+            alignSelf: "end",
+            margin: "5px",
+            marginLeft: "auto",
+          }}
+        >
+          ...
+        </p>
+      )}
     </form>
   );
 };
