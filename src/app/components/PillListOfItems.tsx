@@ -12,6 +12,7 @@ type PillListOfItemsProps<T> = {
   user: UserProfile;
   state: [T[], Dispatch<SetStateAction<T[]>>];
   typeOfListItem: ListItemType;
+  id?: string;
 };
 
 export default function PillListOfItems<T extends BaseDBType>(
@@ -37,7 +38,9 @@ export default function PillListOfItems<T extends BaseDBType>(
 
   useEffect(() => {
     setLoading({ ...loading, get: true });
-    getData(setData).then(() => setLoading({ ...loading, get: false }));
+    getData(setData, props.id).then(() =>
+      setLoading({ ...loading, get: false })
+    );
   }, []);
 
   async function addItem() {

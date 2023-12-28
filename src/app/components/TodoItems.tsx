@@ -10,7 +10,7 @@ type Todo = {
   ownerEmail: string;
 };
 
-export function TodoItems() {
+export function TodoItems({ id }: { id?: string }) {
   const { user } = useUser();
 
   const state = useState<Todo[]>([]);

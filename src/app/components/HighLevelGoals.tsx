@@ -9,7 +9,7 @@ type HighLevelGoal = {
   ownerEmail: string;
 };
 
-export function HighLevelGoals() {
+export function HighLevelGoals({ id }: { id?: string }) {
   const { user } = useUser();
 
   const state = useState<HighLevelGoal[]>([]);
@@ -43,6 +43,7 @@ export function HighLevelGoals() {
           user={user}
           state={state}
           typeOfListItem="highLevelGoals"
+          id={id}
         />
       </div>
     )

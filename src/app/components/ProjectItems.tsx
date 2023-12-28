@@ -11,7 +11,7 @@ type Project = {
   ownerEmail: string;
 };
 
-export default function ProjectItems() {
+export default function ProjectItems({ id }: { id?: string }) {
   const { user } = useUser();
 
   const state = useState<Project[]>([]);

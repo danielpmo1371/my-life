@@ -9,8 +9,19 @@ import PersonalDevelopment from "@/app/components/PersonalDevelopment";
 import ProfessionalDevelopment from "@/app/components/ProfessionalDevelopment";
 import PillButton from "@/components/PillButton";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+import { FaHome } from "react-icons/fa";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-const Home = withPageAuthRequired(() => {
+type ItemCCProps = {
+  params: {
+    id: string;
+  };
+};
+
+const ItemContextCanvas = withPageAuthRequired(({ params }: ItemCCProps) => {
+  const id = params.id;
+
   return (
     <>
       <Modal />
@@ -22,20 +33,22 @@ const Home = withPageAuthRequired(() => {
           gap: "20px",
         }}
       >
-        <h1>Brain context canvas</h1>
+        <h1>Item context canvas</h1>
+        <h2>{id}</h2>
+        <PillButton>
+          <Link href="/canvas">
+            <FaHome />
+          </Link>
+        </PillButton>
         <PillButton>
           <a href="/api/auth/logout">Logout</a>
         </PillButton>
       </div>
       <div className="home-container">
-        <Dashboard />
-        <LinkToDocuments />
-        <ProfessionalDevelopment />
-        <PersonalDevelopment />
-        <Miscelaneous />
+        <Dashboard id={id} />
       </div>
     </>
   );
 });
 
-export default Home;
+export default ItemContextCanvas;

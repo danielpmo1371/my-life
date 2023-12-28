@@ -13,9 +13,8 @@ import useSectionsStore, {
 import PillButton from "@/components/PillButton";
 import WishListItems from "./WishListItems";
 
-export default function Dashboard() {
+export default function Dashboard({ id }: { id?: string }) {
   const { showSection, toggleSection } = useSectionsStore();
-  const user = useUser();
   return (
     <div className="card dashboard">
       <RiDashboard3Line className="icon" />
@@ -69,11 +68,11 @@ export default function Dashboard() {
         }}
         className="dashboard-sections"
       >
-        {showSection("highLevelGoals") && <HighLevelGoals />}
-        {showSection("mantras") && <MantraItems />}
-        {showSection("todos") && <TodoItems />}
-        {showSection("projects") && <ProjectItems />}
-        {showSection("wishList") && <WishListItems />}
+        {showSection("highLevelGoals") && <HighLevelGoals id={id} />}
+        {showSection("mantras") && <MantraItems id={id} />}
+        {showSection("todos") && <TodoItems id={id} />}
+        {showSection("projects") && <ProjectItems id={id} />}
+        {showSection("wishList") && <WishListItems id={id} />}
       </div>
     </div>
   );

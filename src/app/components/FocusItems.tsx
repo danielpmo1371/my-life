@@ -9,7 +9,7 @@ type Mantra = {
   ownerEmail: string;
 };
 
-export function MantraItems() {
+export function MantraItems({ id }: { id?: string }) {
   const { user } = useUser();
 
   const state = useState<Mantra[]>([]);

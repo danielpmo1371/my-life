@@ -3,7 +3,10 @@ import { Dispatch, SetStateAction } from "react";
 export type CrudClientType<T> = {
   apiRoute: string;
   getProjectsUrl: string;
-  getData: (setData: Dispatch<SetStateAction<T[]>>) => Promise<any>;
+  getData: (
+    setData: Dispatch<SetStateAction<T[]>>,
+    id?: string
+  ) => Promise<any>;
   saveDataAndRefresh: (
     newEntity: T,
     setData: Dispatch<SetStateAction<T[]>>
