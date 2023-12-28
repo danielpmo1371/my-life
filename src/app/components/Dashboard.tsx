@@ -13,7 +13,7 @@ import useSectionsStore, {
 import PillButton from "@/components/PillButton";
 import WishListItems from "./WishListItems";
 
-export default function Dashboard({ id }: { id?: string }) {
+export default function Dashboard({ parentId }: { parentId?: string }) {
   const { showSection, toggleSection } = useSectionsStore();
   return (
     <div className="card dashboard">
@@ -68,11 +68,13 @@ export default function Dashboard({ id }: { id?: string }) {
         }}
         className="dashboard-sections"
       >
-        {showSection("highLevelGoals") && <HighLevelGoals parentId={id} />}
-        {showSection("mantras") && <MantraItems parentId={id} />}
-        {showSection("todos") && <TodoItems parentId={id} />}
-        {showSection("projects") && <ProjectItems parentId={id} />}
-        {showSection("wishList") && <WishListItems parentId={id} />}
+        {showSection("highLevelGoals") && (
+          <HighLevelGoals parentId={parentId} />
+        )}
+        {showSection("mantras") && <MantraItems parentId={parentId} />}
+        {showSection("todos") && <TodoItems parentId={parentId} />}
+        {showSection("projects") && <ProjectItems parentId={parentId} />}
+        {showSection("wishList") && <WishListItems parentId={parentId} />}
       </div>
     </div>
   );

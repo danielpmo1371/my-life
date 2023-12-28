@@ -45,7 +45,7 @@ const ItemContextCanvas = withPageAuthRequired(({ params }: ItemCCProps) => {
         </PillButton>
       </div>
       <div className="home-container">
-        <Dashboard id={id} />
+        <Dashboard parentId={id} />
       </div>
     </>
   );
