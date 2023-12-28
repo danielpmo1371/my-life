@@ -28,6 +28,7 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
   };
 
   const getChildrenFor = async (parentId: string) => {
+    return [];
     // const user = await getUserFromSession();
     // if (!user) return;
     // return await prismaEntity.findMany({
