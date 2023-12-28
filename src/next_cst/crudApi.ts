@@ -45,15 +45,15 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
     ) {
       const user = await getUserFromSession();
 
-      const id = request.nextUrl.searchParams.get("id") as string;
-      console.log(id);
+      const parentId = request.nextUrl.searchParams.get("parentid") as string;
+      console.log(parentId);
 
       if (!user) return;
 
       try {
         await prisma.$connect();
-        const dbResponse = id
-          ? await getChildrenFor(id)
+        const dbResponse = parentId
+          ? await getChildrenFor(parentId)
           : await getAllForUser();
 
         prisma.$disconnect();

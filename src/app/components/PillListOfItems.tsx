@@ -56,8 +56,14 @@ export default function PillListOfItems<T extends BaseDBType>(
         ownerEmail: user?.email!,
         parentId,
       } as T,
-      setData
-    );
+      !parentId ? setData : () => {}
+    ).then(() => {
+      if (!parentId) return;
+      setLoading({ ...loading, get: true });
+      getData(setData, parentId).then(() =>
+        setLoading({ ...loading, get: false })
+      );
+    });
     updateNewItem({ ...newItem, title: "" });
     return result;
   }
