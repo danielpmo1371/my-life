@@ -27,6 +27,7 @@ export type UserProfile = {
 };
 
 export type BaseDBType = {
+  id?: string;
   title: string;
   order: string;
   ownerEmail: string;

@@ -1,10 +1,11 @@
 import PillListItem, { ListItemType } from "@/components/ListItem";
 import { BaseDBType, CrudClientType, UserProfile } from "@/next_cst/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaExternalLinkSquareAlt, FaTrash } from "react-icons/fa";
 import "./PillListOfItems.css";
 import useModalStore from "../stores/modalStore";
 import TabbedEditComponent from "./TabbedEditComponent";
+import Link from "next/link";
 
 type PillListOfItemsProps<T> = {
   crudClient: CrudClientType<T>;
@@ -90,11 +91,7 @@ export default function PillListOfItems<T extends BaseDBType>(
               type={typeOfListItem}
             />
             <span
-              style={{
-                margin: "10px",
-                alignItems: "center",
-                alignSelf: "center",
-              }}
+              style={iconStyle}
               onClick={() => {
                 setLoading({
                   ...loading,
@@ -119,6 +116,7 @@ export default function PillListOfItems<T extends BaseDBType>(
               </p>
             )}
             <FaEdit
+              style={iconStyle}
               onClick={() => {
                 setModalChildComponent(
                   <TabbedEditComponent originalValue={t} apiEntity={apiRoute} />
@@ -126,6 +124,9 @@ export default function PillListOfItems<T extends BaseDBType>(
                 openModal();
               }}
             />
+            <Link href={`/canvas/${t.id}`} style={iconStyle}>
+              <FaExternalLinkSquareAlt color="black" />
+            </Link>
           </li>
         ))}
       </ul>
@@ -178,3 +179,9 @@ export default function PillListOfItems<T extends BaseDBType>(
     </>
   );
 }
+
+const iconStyle = {
+  margin: "5px",
+  alignItems: "center",
+  alignSelf: "center",
+};

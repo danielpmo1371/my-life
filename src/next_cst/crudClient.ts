@@ -9,7 +9,7 @@ export function getApiCrudClientFor<T extends { id?: string }>(
   apiRoute: string,
   enableOutputs: boolean = false
 ) {
-  const getProjectsUrl = `api/${apiRoute}`;
+  const getProjectsUrl = `/api/${apiRoute}`;
 
   return {
     apiRoute,

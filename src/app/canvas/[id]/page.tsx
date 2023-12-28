@@ -1,0 +1,41 @@
+"use client";
+import React from "react";
+import "../canvas.css"; // Custom CSS file
+import Dashboard from "@/app/components/Dashboard";
+import LinkToDocuments from "@/app/components/LinkToDocuments";
+import Miscelaneous from "@/app/components/Miscelaneous";
+import { Modal } from "@/app/components/Modal";
+import PersonalDevelopment from "@/app/components/PersonalDevelopment";
+import ProfessionalDevelopment from "@/app/components/ProfessionalDevelopment";
+import PillButton from "@/components/PillButton";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+
+const Home = withPageAuthRequired(() => {
+  return (
+    <>
+      <Modal />
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "20px",
+        }}
+      >
+        <h1>Brain context canvas</h1>
+        <PillButton>
+          <a href="/api/auth/logout">Logout</a>
+        </PillButton>
+      </div>
+      <div className="home-container">
+        <Dashboard />
+        <LinkToDocuments />
+        <ProfessionalDevelopment />
+        <PersonalDevelopment />
+        <Miscelaneous />
+      </div>
+    </>
+  );
+});
+
+export default Home;
