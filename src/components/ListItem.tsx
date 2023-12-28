@@ -40,7 +40,7 @@ function PillListItem(props: {
   };
 
   return (
-    <PillButton style={{ maxWidth: "80%" }}>
+    <PillButton style={{ maxWidth: "300px" }}>
       <div style={iconStyle}>
         {type === "mantra" ? (
           <FaInfoCircle />
