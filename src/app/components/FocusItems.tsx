@@ -9,7 +9,7 @@ type Mantra = {
   ownerEmail: string;
 };
 
-export function MantraItems({ id }: { id?: string }) {
+export function MantraItems({ parentId }: { parentId?: string }) {
   const { user } = useUser();
 
   const state = useState<Mantra[]>([]);
@@ -38,7 +38,7 @@ export function MantraItems({ id }: { id?: string }) {
           user={user}
           state={state}
           typeOfListItem="mantra"
-          id={id}
+          parentId={parentId}
         />
       </div>
     )

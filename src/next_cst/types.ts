@@ -34,4 +34,5 @@ export type BaseDBType = {
   title: string;
   order: string;
   ownerEmail: string;
+  parentId?: string;
 };

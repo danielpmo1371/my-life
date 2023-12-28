@@ -68,11 +68,11 @@ export default function Dashboard({ id }: { id?: string }) {
         }}
         className="dashboard-sections"
       >
-        {showSection("highLevelGoals") && <HighLevelGoals id={id} />}
-        {showSection("mantras") && <MantraItems id={id} />}
-        {showSection("todos") && <TodoItems id={id} />}
-        {showSection("projects") && <ProjectItems id={id} />}
-        {showSection("wishList") && <WishListItems id={id} />}
+        {showSection("highLevelGoals") && <HighLevelGoals parentId={id} />}
+        {showSection("mantras") && <MantraItems parentId={id} />}
+        {showSection("todos") && <TodoItems parentId={id} />}
+        {showSection("projects") && <ProjectItems parentId={id} />}
+        {showSection("wishList") && <WishListItems parentId={id} />}
       </div>
     </div>
   );

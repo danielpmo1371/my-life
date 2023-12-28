@@ -10,7 +10,7 @@ type Todo = {
   ownerEmail: string;
 };
 
-export function TodoItems({ id }: { id?: string }) {
+export function TodoItems({ parentId }: { parentId?: string }) {
   const { user } = useUser();
 
   const state = useState<Todo[]>([]);
@@ -38,7 +38,7 @@ export function TodoItems({ id }: { id?: string }) {
           user={user}
           state={state}
           typeOfListItem="todo"
-          id={id}
+          parentId={parentId}
         />
       </div>
     )

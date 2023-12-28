@@ -11,7 +11,7 @@ type WishListItem = {
   ownerEmail: string;
 };
 
-export default function WishListItems({ id }: { id?: string }) {
+export default function WishListItems({ parentId }: { parentId?: string }) {
   const { user } = useUser();
 
   const state = useState<WishListItem[]>([]);
@@ -42,7 +42,7 @@ export default function WishListItems({ id }: { id?: string }) {
           user={user}
           state={state}
           typeOfListItem="wishList"
-          id={id}
+          parentId={parentId}
         />
       </div>
     )
