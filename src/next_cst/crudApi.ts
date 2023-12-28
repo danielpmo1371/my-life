@@ -22,9 +22,13 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
 
     if (!user) return;
 
-    return await prismaEntity.findMany({
-      where: { ownerEmail: { equals: user.email } },
-    });
+    return await prismaEntity
+      .findMany({
+        where: { ownerEmail: { equals: user.email } },
+      })
+      .then((result: any[]) => {
+        return result.filter((x: { parentId: any }) => !x.parentId);
+      });
   };
 
   const getChildrenFor = async (parentId: string) => {
