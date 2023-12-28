@@ -28,15 +28,14 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
   };
 
   const getChildrenFor = async (parentId: string) => {
-    return [];
-    // const user = await getUserFromSession();
-    // if (!user) return;
-    // return await prismaEntity.findMany({
-    //   where: {
-    //     ownerEmail: { equals: user.email },
-    //     parentId: { equals: parentId },
-    //   },
-    // });
+    const user = await getUserFromSession();
+    if (!user) return;
+    return await prismaEntity.findMany({
+      where: {
+        ownerEmail: { equals: user.email },
+        parentId: { equals: parentId },
+      },
+    });
   };
 
   return {

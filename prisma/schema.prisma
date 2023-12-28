@@ -15,6 +15,7 @@ model projects {
   title    String
   order    String
   ownerEmail String @default("no-email")
+  parentId String @default("")
 }
 
 model todo {
@@ -22,6 +23,7 @@ model todo {
   title    String
   order    String
   ownerEmail String @default("no-email")
+  parentId String @default("")
 }
 
 model mantras {
@@ -29,6 +31,7 @@ model mantras {
   title    String
   order    String
   ownerEmail String @default("no-email")
+  parentId String @default("")
 }
 
 model highLevelGoals {
@@ -36,6 +39,7 @@ model highLevelGoals {
   title    String
   order    String
   ownerEmail String @default("no-email")
+  parentId String @default("")
 }
 
 model wishListItems {
@@ -43,4 +47,5 @@ model wishListItems {
   title    String
   order    String
   ownerEmail String @default("no-email")
+  parentId String @default("")
 }
