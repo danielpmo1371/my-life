@@ -38,6 +38,7 @@ export function MantraItems({ id }: { id?: string }) {
           user={user}
           state={state}
           typeOfListItem="mantra"
+          id={id}
         />
       </div>
     )

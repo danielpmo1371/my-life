@@ -1,6 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { getSession } from "@auth0/nextjs-auth0";
 import { PrismaClient } from "@prisma/client";
+import { NextRequest } from "next/server";
 
 export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
   const prisma = new PrismaClient({
@@ -26,15 +27,34 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
     });
   };
 
+  const getChildrenFor = async (parentId: string) => {
+    // const user = await getUserFromSession();
+    // if (!user) return;
+    // return await prismaEntity.findMany({
+    //   where: {
+    //     ownerEmail: { equals: user.email },
+    //     parentId: { equals: parentId },
+    //   },
+    // });
+  };
+
   return {
-    GET: async function (_req: any, res: { json: (arg0: any) => void }) {
+    GET: async function (
+      request: NextRequest,
+      res: { json: (arg0: any) => void }
+    ) {
       const user = await getUserFromSession();
+
+      const id = request.nextUrl.searchParams.get("id") as string;
+      console.log(id);
 
       if (!user) return;
 
       try {
         await prisma.$connect();
-        const dbResponse = await getAllForUser();
+        const dbResponse = id
+          ? await getChildrenFor(id)
+          : await getAllForUser();
 
         prisma.$disconnect();
         return Response.json(dbResponse);

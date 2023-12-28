@@ -42,6 +42,7 @@ export default function ProjectItems({ id }: { id?: string }) {
           user={user}
           state={state}
           typeOfListItem="project"
+          id={id}
         />
       </div>
     )

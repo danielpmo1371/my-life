@@ -38,6 +38,7 @@ export function TodoItems({ id }: { id?: string }) {
           user={user}
           state={state}
           typeOfListItem="todo"
+          id={id}
         />
       </div>
     )

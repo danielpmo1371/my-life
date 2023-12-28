@@ -42,6 +42,7 @@ export default function WishListItems({ id }: { id?: string }) {
           user={user}
           state={state}
           typeOfListItem="wishList"
+          id={id}
         />
       </div>
     )

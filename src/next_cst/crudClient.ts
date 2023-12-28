@@ -7,7 +7,7 @@ const output = (output: unknown, enableConsoleLogging: boolean) => {
 
 export function getApiCrudClientFor<T extends { id?: string }>(
   apiRoute: string,
-  enableOutputs: boolean = false
+  enableOutputs: boolean = true
 ) {
   const getProjectsUrl = `/api/${apiRoute}`;
 
@@ -19,19 +19,18 @@ export function getApiCrudClientFor<T extends { id?: string }>(
       id?: string
     ) {
       output(`starting getData`, enableOutputs);
-      output(`starting call to ${getProjectsUrl}`, enableOutputs);
-      return await fetch(getProjectsUrl + (id ? `?id=${id}` : "")).then(
-        async (response) => {
-          output(`response: ${stringifyJSON(response)}.`, enableOutputs);
-          output(`parsing JSON.`, enableOutputs);
-          return await response.json().then((data) => {
-            output(`JSON received from ${stringifyJSON(data)}`, enableOutputs);
-            output(`setting data`, enableOutputs);
-            setData(data);
-            return data;
-          });
-        }
-      );
+      const getUrl = getProjectsUrl + (id ? `?id=${id}` : "");
+      output(`starting call to ${getUrl}`, enableOutputs);
+      return await fetch(getUrl).then(async (response) => {
+        output(`response: ${stringifyJSON(response)}.`, enableOutputs);
+        output(`parsing JSON.`, enableOutputs);
+        return await response.json().then((data) => {
+          output(`JSON received from ${stringifyJSON(data)}`, enableOutputs);
+          output(`setting data`, enableOutputs);
+          setData(data);
+          return data;
+        });
+      });
     },
     saveDataAndRefresh: async function (
       newEntity: T,
