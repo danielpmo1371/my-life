@@ -18,6 +18,14 @@ model projects {
   parentId String @default("")
 }
 
+model apprequests {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  title    String
+  order    String
+  ownerEmail String @default("no-email")
+  comment String @default("")
+}
+
 model todo {
   id       String    @id @default(auto()) @map("_id") @db.ObjectId
   title    String

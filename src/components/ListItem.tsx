@@ -13,7 +13,8 @@ export type ListItemType =
   | "todo"
   | "project"
   | "highLevelGoals"
-  | "wishList";
+  | "wishList"
+  | "apprequests";
 
 function PillListItem(props: {
   checked?: boolean;

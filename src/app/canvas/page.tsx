@@ -10,6 +10,8 @@ import Miscelaneous from "../components/Miscelaneous";
 import PillButton from "@/components/PillButton";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { Modal } from "../components/Modal";
+import AppRequests from "../components/AppRequests";
+import { FaTools } from "react-icons/fa";
 
 const Home = withPageAuthRequired(() => {
   return (
@@ -30,6 +32,17 @@ const Home = withPageAuthRequired(() => {
       </div>
       <div className="home-container">
         <Dashboard />
+        <AppRequests />
+      </div>
+      <div className="home-container">
+        <div className="card doclinks">
+          <FaTools className="icon" />
+          <h3 style={{ color: "orange" }}>
+            == The below sections are not functional yet ==
+          </h3>
+        </div>
+      </div>
+      <div className="home-container">
         <LinkToDocuments />
         <ProfessionalDevelopment />
         <PersonalDevelopment />
