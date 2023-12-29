@@ -55,7 +55,7 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
     ) {
       const user = await getUserFromSession();
 
-      const parentId = request.nextUrl.searchParams.get("parentid") as string;
+      const parentId = request.nextUrl.searchParams.get("parentId") as string;
       const isGlobal =
         (request.nextUrl.searchParams.get("global") as string) === "true";
 
