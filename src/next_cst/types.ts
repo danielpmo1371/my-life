@@ -5,7 +5,8 @@ export type CrudClientType<T> = {
   getProjectsUrl: string;
   getData: (
     setData: Dispatch<SetStateAction<T[]>>,
-    id?: string
+    id?: string,
+    global?: boolean
   ) => Promise<any>;
   saveDataAndRefresh: (
     newEntity: T,

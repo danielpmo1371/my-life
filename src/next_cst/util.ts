@@ -29,3 +29,20 @@ export const stringifyJSON = (data: any): string | undefined => {
     );
   else return "{}";
 };
+
+export function constructRelativeURL(basePath: string, queryParams: object) {
+  let url = basePath;
+
+  const params = Object.entries(queryParams)
+    .filter(([key, value]) => value != null) // Exclude null or undefined values
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+    );
+
+  if (params.length > 0) {
+    url += "?" + params.join("&");
+  }
+
+  return url;
+}

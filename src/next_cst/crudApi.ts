@@ -17,18 +17,24 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
     return user;
   };
 
-  const getAllForUser = async () => {
+  const getAllForUser = async (global?: boolean) => {
     const user = await getUserFromSession();
 
     if (!user) return;
+
+    const filterParentId = (result: any[]) => {
+      return result.filter((x: { parentId: any }) => !x.parentId);
+    };
+
+    if (global) {
+      return await prismaEntity.findMany().then(filterParentId);
+    }
 
     return await prismaEntity
       .findMany({
         where: { ownerEmail: { equals: user.email } },
       })
-      .then((result: any[]) => {
-        return result.filter((x: { parentId: any }) => !x.parentId);
-      });
+      .then(filterParentId);
   };
 
   const getChildrenFor = async (parentId: string) => {
@@ -50,7 +56,8 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
       const user = await getUserFromSession();
 
       const parentId = request.nextUrl.searchParams.get("parentid") as string;
-      console.log(parentId);
+      const isGlobal =
+        (request.nextUrl.searchParams.get("global") as string) === "true";
 
       if (!user) return;
 
@@ -58,7 +65,7 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
         await prisma.$connect();
         const dbResponse = parentId
           ? await getChildrenFor(parentId)
-          : await getAllForUser();
+          : await getAllForUser(isGlobal);
 
         prisma.$disconnect();
         return Response.json(dbResponse);

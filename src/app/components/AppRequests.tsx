@@ -54,6 +54,7 @@ export default function AppRequests({ parentId }: { parentId?: string }) {
           state={state}
           typeOfListItem="apprequests"
           parentId={parentId}
+          isGlobal={true}
         />
       </div>
     </div>

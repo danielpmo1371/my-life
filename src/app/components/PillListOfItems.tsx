@@ -13,12 +13,13 @@ type PillListOfItemsProps<T> = {
   state: [T[], Dispatch<SetStateAction<T[]>>];
   typeOfListItem: ListItemType;
   parentId?: string;
+  isGlobal?: boolean;
 };
 
 export default function PillListOfItems<T extends BaseDBType>(
   props: PillListOfItemsProps<T>
 ) {
-  const { crudClient, user, state, typeOfListItem, parentId } = props;
+  const { crudClient, user, state, typeOfListItem, parentId, isGlobal } = props;
   const { getData, saveDataAndRefresh, deleteAndRefresh, apiRoute } =
     crudClient;
   const [data, setData] = state;
@@ -38,7 +39,7 @@ export default function PillListOfItems<T extends BaseDBType>(
 
   useEffect(() => {
     setLoading({ ...loading, get: true });
-    getData(setData, parentId).then(() =>
+    getData(setData, parentId, isGlobal).then(() =>
       setLoading({ ...loading, get: false })
     );
   }, []);

@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
-import { stringifyJSON } from "./util";
+import { constructRelativeURL, stringifyJSON } from "./util";
+import { CrudClientType } from "./types";
 
 const output = (output: unknown, enableConsoleLogging: boolean) => {
   enableConsoleLogging && console.log(output);
@@ -8,17 +9,23 @@ const output = (output: unknown, enableConsoleLogging: boolean) => {
 export function getApiCrudClientFor<T extends { id?: string }>(
   apiRoute: string,
   enableOutputs: boolean = true
-) {
+): CrudClientType<T> {
   const getProjectsUrl = `/api/${apiRoute}`;
 
   const getData = async function (
     setData: Dispatch<SetStateAction<T[]>>,
-    parentId?: string
+    parentId?: string,
+    global?: boolean
   ) {
     output(`starting getData`, enableOutputs);
-    const getUrl = getProjectsUrl + (parentId ? `?parentid=${parentId}` : "");
-    output(`starting call to ${getUrl}`, enableOutputs);
-    return await fetch(getUrl).then(async (response) => {
+
+    let queryParams: { [key: string]: string } = {};
+    if (global) queryParams["global"] = global.toString();
+    if (parentId) queryParams["parentId"] = parentId.toString();
+    const url = constructRelativeURL(getProjectsUrl, queryParams);
+
+    output(`starting call to ${url}`, enableOutputs);
+    return await fetch(url).then(async (response) => {
       output(`response: ${stringifyJSON(response)}.`, enableOutputs);
       output(`parsing JSON.`, enableOutputs);
       return await response.json().then((data) => {
