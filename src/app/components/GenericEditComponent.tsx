@@ -1,15 +1,16 @@
 import React, { ChangeEvent, useState } from "react";
 import "./GenericEditComponent.css";
 import { getApiCrudClientFor } from "@/next_cst/crudClient";
+import { Routes } from "../common/types";
 
 const GenericEditComponent = ({
   originalValue,
   apiEntity,
 }: {
   originalValue: any;
-  apiEntity: string;
+  apiEntity: Routes;
 }) => {
-  const { saveDataAndRefresh } = getApiCrudClientFor(apiEntity, true);
+  const { saveData } = getApiCrudClientFor(apiEntity, true);
   const [formData, setFormData] = useState(originalValue);
   const [loading, setLoading] = useState(false);
 
@@ -23,9 +24,7 @@ const GenericEditComponent = ({
     try {
       setLoading(true);
       console.log("saving");
-      saveDataAndRefresh(formData, (d) =>
-        console.log("saved, response:", d)
-      ).then(() => setLoading(false));
+      saveData(formData).then(() => setLoading(false));
       //   onUpdate(); // Callback to inform parent component of update
     } catch (error) {
       console.error("Error updating data:", error);

@@ -1,22 +1,19 @@
 import { Dispatch, SetStateAction } from "react";
 import { constructRelativeURL, stringifyJSON } from "./util";
 import { CrudClientType } from "./types";
+import { Routes } from "@/app/common/types";
 
 const output = (output: unknown, enableConsoleLogging: boolean) => {
   enableConsoleLogging && console.log(output);
 };
 
 export function getApiCrudClientFor<T extends { id?: string }>(
-  apiRoute: string,
+  apiRoute: Routes,
   enableOutputs: boolean = true
 ): CrudClientType<T> {
   const getProjectsUrl = `/api/${apiRoute}`;
 
-  const getData = async function (
-    setData: Dispatch<SetStateAction<T[]>>,
-    parentId?: string,
-    global?: boolean
-  ) {
+  const getData = async function (parentId?: string, global?: boolean) {
     output(`starting getData`, enableOutputs);
 
     let queryParams: { [key: string]: string } = {};
@@ -31,16 +28,12 @@ export function getApiCrudClientFor<T extends { id?: string }>(
       return await response.json().then((data) => {
         output(`JSON received from ${stringifyJSON(data)}`, enableOutputs);
         output(`setting data`, enableOutputs);
-        setData(data);
         return data;
       });
     });
   };
 
-  const saveDataAndRefresh = async function (
-    newEntity: T,
-    setData: Dispatch<SetStateAction<T[]>>
-  ) {
+  const saveData = async function (newEntity: T) {
     output(`starting saveDataAndRefresh`, enableOutputs);
     output(`starting call to ${getProjectsUrl}`, enableOutputs);
     return await fetch(getProjectsUrl, {
@@ -52,16 +45,12 @@ export function getApiCrudClientFor<T extends { id?: string }>(
       return await response.json().then((data) => {
         output(`JSON received from ${JSON.stringify(data)}`, enableOutputs);
         output(`setting data`, enableOutputs);
-        setData(data);
         return data;
       });
     });
   };
 
-  const deleteAndRefresh = async function (
-    entityToDelete: T,
-    setData: Dispatch<SetStateAction<T[]>>
-  ) {
+  const deleteAndRefresh = async function (entityToDelete: T) {
     output(`starting deleteAndRefresh`, enableOutputs);
     output(`starting call to ${getProjectsUrl}`, enableOutputs);
     return await fetch(getProjectsUrl, {
@@ -73,7 +62,6 @@ export function getApiCrudClientFor<T extends { id?: string }>(
       return await response.json().then((data) => {
         output(`JSON received from ${JSON.stringify(data)}`, enableOutputs);
         output(`setting data`, enableOutputs);
-        setData(data);
         return data;
       });
     });
@@ -83,7 +71,7 @@ export function getApiCrudClientFor<T extends { id?: string }>(
     apiRoute,
     getProjectsUrl,
     getData,
-    saveDataAndRefresh,
-    deleteAndRefresh,
+    saveData: saveData,
+    delete: deleteAndRefresh,
   };
 }

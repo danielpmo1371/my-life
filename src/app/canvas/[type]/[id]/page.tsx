@@ -1,26 +1,40 @@
 "use client";
-import React from "react";
-import "../canvas.css"; // Custom CSS file
+import React, { useEffect, useState } from "react";
+import "../../canvas.css"; // Custom CSS file
 import Dashboard from "@/app/components/Dashboard";
-import LinkToDocuments from "@/app/components/LinkToDocuments";
-import Miscelaneous from "@/app/components/Miscelaneous";
 import { Modal } from "@/app/components/Modal";
-import PersonalDevelopment from "@/app/components/PersonalDevelopment";
-import ProfessionalDevelopment from "@/app/components/ProfessionalDevelopment";
 import PillButton from "@/components/PillButton";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import { FaHome } from "react-icons/fa";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { getApiCrudClientFor } from "@/next_cst/crudClient";
+import { Routes } from "@/app/common/types";
+import { BaseDBType } from "@/next_cst/types";
 
 type ItemCCProps = {
   params: {
     id: string;
+    type: string;
   };
 };
 
 const ItemContextCanvas = withPageAuthRequired(({ params }: ItemCCProps) => {
+  const type = params.type;
+  const apiRoute = (
+    type[type.length - 1] === "s" ? type : type + "s"
+  ) as Routes;
+
   const id = params.id;
+
+  const crudClient = getApiCrudClientFor<BaseDBType>(apiRoute, true);
+  const { getData } = crudClient;
+  const [item, setItem] = useState<BaseDBType>({} as BaseDBType);
+
+  useEffect(() => {
+    getData(id).then((x) => {
+      setItem(x.find((y: BaseDBType) => y.id === id)!);
+    });
+  }, []);
 
   return (
     <>
@@ -34,7 +48,7 @@ const ItemContextCanvas = withPageAuthRequired(({ params }: ItemCCProps) => {
         }}
       >
         <h1>Item context canvas</h1>
-        <h2>{id}</h2>
+        <h3>Title: {item.title}</h3>
         <PillButton>
           <Link href="/canvas">
             <FaHome />

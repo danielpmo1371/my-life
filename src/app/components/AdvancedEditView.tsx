@@ -1,14 +1,15 @@
 import { getApiCrudClientFor } from "@/next_cst/crudClient";
 import { useState } from "react";
+import { Routes } from "../common/types";
 
 export default function AdvancedEditView({
   originalValue,
   apiEntity,
 }: {
   originalValue: any;
-  apiEntity: string;
+  apiEntity: Routes;
 }) {
-  const { saveDataAndRefresh } = getApiCrudClientFor(apiEntity, true);
+  const { saveData } = getApiCrudClientFor(apiEntity, true);
 
   const [editVal, setEditVal] = useState(
     JSON.stringify(originalValue, null, 2)
@@ -24,9 +25,7 @@ export default function AdvancedEditView({
 
     setLoading(true);
     console.log("saving");
-    saveDataAndRefresh(output, (d) => console.log("saved, response:", d)).then(
-      () => setLoading(false)
-    );
+    saveData(output).then(() => setLoading(false));
   };
 
   return (

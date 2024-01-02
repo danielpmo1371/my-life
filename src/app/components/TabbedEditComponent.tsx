@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import AdvancedEditView from "./AdvancedEditView";
 import "./TabbedEditComponent.css";
 import GenericEditComponent from "./GenericEditComponent";
+import { Routes } from "../common/types";
 
 const TabbedEditComponent = ({
   originalValue,
   apiEntity,
 }: {
   originalValue: any;
-  apiEntity: string;
+  apiEntity: Routes;
 }) => {
   const [activeTab, setActiveTab] = useState("edit");
 

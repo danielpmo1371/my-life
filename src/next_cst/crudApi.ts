@@ -43,7 +43,20 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
     return await prismaEntity.findMany({
       where: {
         ownerEmail: { equals: user.email },
-        parentId: { equals: parentId },
+        OR: [
+          { parentId: { equals: parentId } },
+          { id: { equals: parentId.toString() } },
+        ],
+      },
+    });
+  };
+
+  const getItemById = async (itemId: string) => {
+    const user = await getUserFromSession();
+    if (!user) return;
+    return await prismaEntity.findUniqueOrThrow({
+      where: {
+        _id: { equals: itemId.toString() },
       },
     });
   };
@@ -55,17 +68,24 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
     ) {
       const user = await getUserFromSession();
 
+      const itemId = request.nextUrl.searchParams.get("itemId") as string;
       const parentId = request.nextUrl.searchParams.get("parentId") as string;
       const isGlobal =
         (request.nextUrl.searchParams.get("global") as string) === "true";
 
       if (!user) return;
 
+      let dbResponse;
       try {
         await prisma.$connect();
-        const dbResponse = parentId
-          ? await getChildrenFor(parentId)
-          : await getAllForUser(isGlobal);
+
+        if (itemId) {
+          dbResponse = await getItemById(itemId);
+        } else if (parentId) {
+          dbResponse = await getChildrenFor(parentId);
+        } else {
+          dbResponse = await getAllForUser(isGlobal);
+        }
 
         prisma.$disconnect();
         return Response.json(dbResponse);

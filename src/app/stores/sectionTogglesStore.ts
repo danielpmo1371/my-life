@@ -1,27 +1,12 @@
-import { highLevelGoals } from "@prisma/client";
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
+import { SectionsKeys } from "../common/types";
 
 export interface Todo {
   title: string;
   date?: Date | undefined;
   index: number;
 }
-
-export type SectionsKeys =
-  | "todos"
-  | "mantras"
-  | "highLevelGoals"
-  | "projects"
-  | "wishList";
-
-export const Sections = [
-  "todos",
-  "mantras",
-  "highLevelGoals",
-  "projects",
-  "wishList",
-];
 
 interface SectionsState {
   sectionsToShow: SectionsKeys[];
