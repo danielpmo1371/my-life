@@ -6,7 +6,7 @@ import "./PillListOfItems.css";
 import useModalStore from "../stores/modalStore";
 import TabbedEditComponent from "./TabbedEditComponent";
 import Link from "next/link";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 
 type PillListOfItemsProps<T> = {
   crudClient: CrudClientType<T>;
@@ -37,6 +37,18 @@ export default function PillListOfItems<T extends BaseDBType>(
     { staleTime: 60 * 1000, cacheTime: 60 * 1000 } // 1 minute
   );
   const { isLoading, isError, data, error, refetch } = query;
+
+  const saveMutation = useMutation(addItem, {
+    onSuccess: () => {
+      query.refetch();
+    },
+  });
+
+  const deleteMutation = useMutation(deleteItem, {
+    onSuccess: () => {
+      query.refetch();
+    },
+  });
 
   async function addItem() {
     const allIndexes = data?.map((x) => x.order);
@@ -76,22 +88,26 @@ export default function PillListOfItems<T extends BaseDBType>(
               title={`[${t.order}] ${t.title}`}
               type={typeOfListItem}
             />
-            <span
-              style={iconStyle}
-              onClick={() => {
-                deleteItem(t);
-              }}
-            >
-              <FaTrash />
-            </span>
-            {false && (
-              <p
-                className="flash"
-                style={{ alignItems: "center", alignSelf: "center" }}
+            {(!deleteMutation.isLoading ||
+              deleteMutation.variables?.id !== t.id) && (
+              <span
+                style={iconStyle}
+                onClick={() => {
+                  deleteMutation.mutate(t);
+                }}
               >
-                ...
-              </p>
+                <FaTrash />
+              </span>
             )}
+            {deleteMutation.isLoading &&
+              deleteMutation.variables?.id === t.id && (
+                <p
+                  className="flash"
+                  style={{ alignItems: "center", alignSelf: "center" }}
+                >
+                  ...
+                </p>
+              )}
             <FaEdit
               style={iconStyle}
               onClick={() => {
@@ -119,7 +135,7 @@ export default function PillListOfItems<T extends BaseDBType>(
             }
             value={newItem.title}
             onKeyDown={(e) => {
-              if (e.key === "Enter") addItem();
+              if (e.key === "Enter") saveMutation.mutate();
             }}
           />
           <span className="label">New item</span>
@@ -127,18 +143,18 @@ export default function PillListOfItems<T extends BaseDBType>(
         </label>
       </div>
 
-      {true && (
+      {!saveMutation.isLoading && (
         <button
           type="button"
           className="button-10"
           role="button"
-          onClick={addItem}
+          onClick={() => saveMutation.mutate}
           disabled={false}
         >
           Add
         </button>
       )}
-      {false && (
+      {saveMutation.isLoading && (
         <p
           className="flash"
           style={{
