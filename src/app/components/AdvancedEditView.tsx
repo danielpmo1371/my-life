@@ -9,7 +9,7 @@ export default function AdvancedEditView({
   originalValue: any;
   apiEntity: Routes;
 }) {
-  const { saveData } = getApiCrudClientFor(apiEntity, true);
+  const { saveItem } = getApiCrudClientFor(apiEntity, true);
 
   const [editVal, setEditVal] = useState(
     JSON.stringify(originalValue, null, 2)
@@ -17,7 +17,7 @@ export default function AdvancedEditView({
 
   const [loading, setLoading] = useState(false);
 
-  const saveItem = () => {
+  const saveHandler = () => {
     const output = JSON.parse(editVal);
     console.log(output);
 
@@ -25,7 +25,7 @@ export default function AdvancedEditView({
 
     setLoading(true);
     console.log("saving");
-    saveData(output).then(() => setLoading(false));
+    saveItem(output).then(() => setLoading(false));
   };
 
   return (
@@ -49,7 +49,7 @@ export default function AdvancedEditView({
           type="button"
           className="button-10"
           role="button"
-          onClick={saveItem}
+          onClick={saveHandler}
           disabled={loading ? true : false}
         >
           Save

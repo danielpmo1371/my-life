@@ -12,7 +12,11 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-.dashboard-sections > div {
+.dashboard-sections > div  {
+  flex:1;
+}
+
+.dashboard-sections > div > div {
   padding: 0 15px;
 }
 
@@ -216,7 +220,7 @@ ul li a:focus-visible {
     padding: 2px;
     margin: 2px;
   }
-  .dashboard-sections > div {
+  .dashboard-sections > div > div {
     padding: 3px;
     max-width: 100%;
   }

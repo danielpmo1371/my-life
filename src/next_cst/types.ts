@@ -1,21 +1,11 @@
-import { Dispatch, SetStateAction } from "react";
+import { Routes, SectionsKeys } from "@/app/common/types";
 
 export type CrudClientType<T> = {
-  apiRoute: string;
+  apiRoute: Routes;
   getProjectsUrl: string;
-  getData: (
-    setData: Dispatch<SetStateAction<T[]>>,
-    id?: string,
-    global?: boolean
-  ) => Promise<any>;
-  saveDataAndRefresh: (
-    newEntity: T,
-    setData: Dispatch<SetStateAction<T[]>>
-  ) => Promise<any>;
-  deleteAndRefresh: (
-    entityToDelete: T,
-    setData: Dispatch<SetStateAction<T[]>>
-  ) => Promise<any>;
+  getData: (id?: string, global?: boolean) => Promise<any>;
+  saveItem: (newEntity: T) => Promise<any>;
+  deleteItem: (entityToDelete: T) => Promise<any>;
 };
 
 export type UserProfile = {

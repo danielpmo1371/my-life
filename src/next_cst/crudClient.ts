@@ -33,7 +33,7 @@ export function getApiCrudClientFor<T extends { id?: string }>(
     });
   };
 
-  const saveData = async function (newEntity: T) {
+  const saveItem = async function (newEntity: T) {
     output(`starting saveDataAndRefresh`, enableOutputs);
     output(`starting call to ${getProjectsUrl}`, enableOutputs);
     return await fetch(getProjectsUrl, {
@@ -50,7 +50,7 @@ export function getApiCrudClientFor<T extends { id?: string }>(
     });
   };
 
-  const deleteAndRefresh = async function (entityToDelete: T) {
+  const deleteItem = async function (entityToDelete: T) {
     output(`starting deleteAndRefresh`, enableOutputs);
     output(`starting call to ${getProjectsUrl}`, enableOutputs);
     return await fetch(getProjectsUrl, {
@@ -71,7 +71,7 @@ export function getApiCrudClientFor<T extends { id?: string }>(
     apiRoute,
     getProjectsUrl,
     getData,
-    saveData: saveData,
-    delete: deleteAndRefresh,
+    saveItem,
+    deleteItem,
   };
 }

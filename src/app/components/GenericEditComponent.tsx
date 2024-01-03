@@ -10,7 +10,7 @@ const GenericEditComponent = ({
   originalValue: any;
   apiEntity: Routes;
 }) => {
-  const { saveData } = getApiCrudClientFor(apiEntity, true);
+  const { saveItem } = getApiCrudClientFor(apiEntity, true);
   const [formData, setFormData] = useState(originalValue);
   const [loading, setLoading] = useState(false);
 
@@ -24,7 +24,7 @@ const GenericEditComponent = ({
     try {
       setLoading(true);
       console.log("saving");
-      saveData(formData).then(() => setLoading(false));
+      saveItem(formData).then(() => setLoading(false));
       //   onUpdate(); // Callback to inform parent component of update
     } catch (error) {
       console.error("Error updating data:", error);

@@ -6,6 +6,7 @@ import "./PillListOfItems.css";
 import useModalStore from "../stores/modalStore";
 import TabbedEditComponent from "./TabbedEditComponent";
 import Link from "next/link";
+import { useQuery } from "react-query";
 
 type PillListOfItemsProps<T> = {
   crudClient: CrudClientType<T>;
@@ -20,14 +21,7 @@ export default function PillListOfItems<T extends BaseDBType>(
   props: PillListOfItemsProps<T>
 ) {
   const { crudClient, user, state, typeOfListItem, parentId, isGlobal } = props;
-  const { getData, saveDataAndRefresh, deleteAndRefresh, apiRoute } =
-    crudClient;
-  const [data, setData] = state;
-  const [loading, setLoading] = useState<{
-    del: { [key: string]: boolean };
-    get: boolean;
-    save: boolean;
-  }>({ del: {}, get: false, save: false });
+  const { getData, saveItem, deleteItem, apiRoute } = crudClient;
 
   const [newItem, updateNewItem] = useState<BaseDBType>({
     title: "",
@@ -36,58 +30,39 @@ export default function PillListOfItems<T extends BaseDBType>(
   });
 
   const { openModal, setModalChildComponent } = useModalStore();
-
-  useEffect(() => {
-    setLoading({ ...loading, get: true });
-    getData(setData, parentId, isGlobal).then(() =>
-      setLoading({ ...loading, get: false })
-    );
-  }, []);
+  const query = useQuery<T[]>(
+    // (typeOfListItem + parentId + (isGlobal?.toString() ?? "false")).toString(),
+    typeOfListItem,
+    () => getData(parentId, isGlobal),
+    { staleTime: 60 * 1000, cacheTime: 60 * 1000 } // 1 minute
+  );
+  const { isLoading, isError, data, error, refetch } = query;
 
   async function addItem() {
-    const allIndexes = data.map((x) => x.order);
-    const highestIndex = allIndexes?.sort((a, b) => b.localeCompare(a))[0] ?? 0;
+    const allIndexes = data?.map((x) => x.order);
+    const highestIndex =
+      allIndexes?.sort((a, b) => b.localeCompare(a))[0] ?? "0";
 
     const index = parseInt(highestIndex) + 1;
 
-    const result = await saveDataAndRefresh(
-      {
-        ...newItem,
-        order: index.toString(),
-        ownerEmail: user?.email!,
-        parentId,
-      } as T,
-      !parentId ? setData : () => {}
-    ).then(() => {
-      if (!parentId) return;
-      setLoading({ ...loading, get: true });
-      getData(setData, parentId).then(() =>
-        setLoading({ ...loading, get: false })
-      );
-    });
+    const result = await saveItem({
+      ...newItem,
+      order: index.toString(),
+      ownerEmail: user?.email!,
+      parentId,
+    } as T);
     updateNewItem({ ...newItem, title: "" });
     return result;
   }
 
-  const saveItem = () => {
-    setLoading({
-      ...loading,
-      save: true,
-    });
-    addItem().then(() => {
-      setLoading({
-        ...loading,
-        save: false,
-      });
-      updateNewItem({ ...newItem, title: "" });
-    });
-  };
-
   return (
     <>
-      {loading.get && <p className="flash">Refreshing</p>}
+      {isLoading && <p className="flash">Refreshing</p>}
+      <button type="button" onClick={() => refetch()}>
+        Refresh
+      </button>
       <ul>
-        {data.map((t) => (
+        {data?.map((t) => (
           <li
             key={t.order}
             style={{
@@ -104,21 +79,12 @@ export default function PillListOfItems<T extends BaseDBType>(
             <span
               style={iconStyle}
               onClick={() => {
-                setLoading({
-                  ...loading,
-                  del: { ...loading.del, [t.order]: true },
-                });
-                deleteAndRefresh(t, setData).then(() => {
-                  setLoading({
-                    ...loading,
-                    del: { ...loading.del, [t.order]: false },
-                  });
-                });
+                deleteItem(t);
               }}
             >
               <FaTrash />
             </span>
-            {loading.del[t.order] && (
+            {false && (
               <p
                 className="flash"
                 style={{ alignItems: "center", alignSelf: "center" }}
@@ -135,7 +101,7 @@ export default function PillListOfItems<T extends BaseDBType>(
                 openModal();
               }}
             />
-            <Link href={`/canvas/${t.id}`} style={iconStyle}>
+            <Link href={`/canvas/${typeOfListItem}/${t.id}`} style={iconStyle}>
               <FaExternalLinkSquareAlt color="black" />
             </Link>
           </li>
@@ -153,7 +119,7 @@ export default function PillListOfItems<T extends BaseDBType>(
             }
             value={newItem.title}
             onKeyDown={(e) => {
-              if (e.key === "Enter") saveItem();
+              if (e.key === "Enter") addItem();
             }}
           />
           <span className="label">New item</span>
@@ -161,18 +127,18 @@ export default function PillListOfItems<T extends BaseDBType>(
         </label>
       </div>
 
-      {!loading.save && (
+      {true && (
         <button
           type="button"
           className="button-10"
           role="button"
-          onClick={saveItem}
-          disabled={loading.save ? true : false}
+          onClick={addItem}
+          disabled={false}
         >
           Add
         </button>
       )}
-      {loading.save && (
+      {false && (
         <p
           className="flash"
           style={{

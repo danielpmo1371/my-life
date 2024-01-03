@@ -1,5 +1,6 @@
 "use client";
 
+import { ReactQueryDevtools } from "react-query/devtools";
 import { RiDashboard3Line } from "react-icons/ri";
 import { MantraItems } from "./FocusItems";
 import { TodoItems } from "./TodoItems";
@@ -13,6 +14,8 @@ import { QueryClient, QueryClientProvider } from "react-query";
 
 export default function Dashboard({ parentId }: { parentId?: string }) {
   const { showSection, toggleSection } = useSectionsStore();
+  const queryClient = new QueryClient();
+
   return (
     <div className="card dashboard">
       <RiDashboard3Line className="icon" />
@@ -57,23 +60,37 @@ export default function Dashboard({ parentId }: { parentId?: string }) {
           ))}
         </div>
       </div>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools initialIsOpen={false} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+          }}
+          className="dashboard-sections"
+        >
+          <div hidden={!showSection("highLevelGoals")}>
+            <HighLevelGoals parentId={parentId} />
+          </div>
 
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-        }}
-        className="dashboard-sections"
-      >
-        {showSection("highLevelGoals") && (
-          <HighLevelGoals parentId={parentId} />
-        )}
-        {showSection("mantras") && <MantraItems parentId={parentId} />}
-        {showSection("todos") && <TodoItems parentId={parentId} />}
-        {showSection("projects") && <ProjectItems parentId={parentId} />}
-        {showSection("wishList") && <WishListItems parentId={parentId} />}
-      </div>
+          <div hidden={!showSection("mantras")}>
+            <MantraItems parentId={parentId} />
+          </div>
+
+          <div hidden={!showSection("todos")}>
+            <TodoItems parentId={parentId} />
+          </div>
+
+          <div hidden={!showSection("projects")}>
+            <ProjectItems parentId={parentId} />
+          </div>
+
+          <div hidden={!showSection("wishListItems")}>
+            <WishListItems parentId={parentId} />
+          </div>
+        </div>
+      </QueryClientProvider>
     </div>
   );
 }

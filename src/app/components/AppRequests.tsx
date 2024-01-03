@@ -5,6 +5,7 @@ import PillListOfItems from "./PillListOfItems";
 import { getApiCrudClientFor } from "@/next_cst/crudClient";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { useState } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 type AppRequest = {
   id?: string;
@@ -15,6 +16,7 @@ type AppRequest = {
 
 export default function AppRequests({ parentId }: { parentId?: string }) {
   const { user } = useUser();
+  const queryClient = new QueryClient();
 
   const state = useState<AppRequest[]>([]);
   const crudClient = getApiCrudClientFor<AppRequest>("apprequests", true);
@@ -39,24 +41,25 @@ export default function AppRequests({ parentId }: { parentId?: string }) {
           </small>
         </div>
       </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          flexWrap: "wrap",
-        }}
-        className="dashboard-sections"
-      >
-        <PillListOfItems<AppRequest>
-          crudClient={crudClient}
-          user={user}
-          state={state}
-          typeOfListItem="apprequests"
-          parentId={parentId}
-          isGlobal={true}
-        />
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            flexWrap: "wrap",
+          }}
+          className="dashboard-sections"
+        >
+          <PillListOfItems<AppRequest>
+            crudClient={crudClient}
+            user={user}
+            state={state}
+            typeOfListItem="apprequests"
+            parentId={parentId}
+            isGlobal={true}
+          />
+        </div>
+      </QueryClientProvider>
     </div>
   );
 }
