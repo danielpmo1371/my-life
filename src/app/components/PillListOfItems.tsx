@@ -70,9 +70,6 @@ export default function PillListOfItems<T extends BaseDBType>(
   return (
     <>
       {isLoading && <p className="flash">Refreshing</p>}
-      <button type="button" onClick={() => refetch()}>
-        Refresh
-      </button>
       <ul>
         {data?.map((t) => (
           <li
