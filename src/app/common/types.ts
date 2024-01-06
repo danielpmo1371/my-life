@@ -4,7 +4,8 @@ export type SectionsKeys =
   | "highLevelGoals"
   | "projects"
   | "wishListItems"
-  | "apprequests";
+  | "apprequests"
+  | "doItNextItems";
 
 export type Routes = SectionsKeys;
 
@@ -14,4 +15,5 @@ export const Sections = [
   "highLevelGoals",
   "projects",
   "wishListItems",
+  "doItNextItems",
 ];

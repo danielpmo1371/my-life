@@ -4,6 +4,7 @@ import {
   FaInfoCircle,
   FaProjectDiagram,
   FaRegCircle,
+  FaRegHourglass,
 } from "react-icons/fa";
 import PillButton from "./PillButton";
 import useModalStore from "@/app/stores/modalStore";
@@ -14,7 +15,8 @@ export type ListItemType =
   | "project"
   | "highLevelGoals"
   | "wishList"
-  | "apprequests";
+  | "apprequests"
+  | "doItNext";
 
 function PillListItem(props: {
   checked?: boolean;
@@ -43,10 +45,13 @@ function PillListItem(props: {
   return (
     <PillButton style={{ maxWidth: "300px" }}>
       <div style={iconStyle}>
+        {/* Todo: replace this with a prop */}
         {type === "mantra" ? (
           <FaInfoCircle />
         ) : type === "project" ? (
           <FaProjectDiagram />
+        ) : type === "doItNext" ? (
+          <FaRegHourglass />
         ) : checked ? (
           <FaCheckCircle />
         ) : (

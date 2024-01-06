@@ -57,3 +57,11 @@ model wishListItems {
   ownerEmail String @default("no-email")
   parentId String @default("")
 }
+
+model doItNext {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  title    String    @default("no-email")
+  order    String
+  ownerEmail String
+  todoId String    @default("")
+}

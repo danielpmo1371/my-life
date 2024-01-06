@@ -11,6 +11,7 @@ import PillButton from "@/components/PillButton";
 import WishListItems from "./WishListItems";
 import { Sections, SectionsKeys } from "../common/types";
 import { QueryClient, QueryClientProvider } from "react-query";
+import DoItNextItems from "./DoItNextItems";
 
 export default function Dashboard({ parentId }: { parentId?: string }) {
   const { showSection, toggleSection } = useSectionsStore();
@@ -70,12 +71,8 @@ export default function Dashboard({ parentId }: { parentId?: string }) {
           }}
           className="dashboard-sections"
         >
-          <div hidden={!showSection("highLevelGoals")}>
-            <HighLevelGoals parentId={parentId} />
-          </div>
-
-          <div hidden={!showSection("mantras")}>
-            <MantraItems parentId={parentId} />
+          <div hidden={!showSection("doItNextItems")}>
+            <DoItNextItems parentId={parentId} />
           </div>
 
           <div hidden={!showSection("todos")}>
@@ -84,6 +81,14 @@ export default function Dashboard({ parentId }: { parentId?: string }) {
 
           <div hidden={!showSection("projects")}>
             <ProjectItems parentId={parentId} />
+          </div>
+
+          <div hidden={!showSection("highLevelGoals")}>
+            <HighLevelGoals parentId={parentId} />
+          </div>
+
+          <div hidden={!showSection("mantras")}>
+            <MantraItems parentId={parentId} />
           </div>
 
           <div hidden={!showSection("wishListItems")}>
