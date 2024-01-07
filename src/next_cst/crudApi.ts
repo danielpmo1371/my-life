@@ -27,12 +27,17 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
     };
 
     if (global) {
-      return await prismaEntity.findMany().then(filterParentId);
+      return await prismaEntity
+        .findMany({
+          orderBy: { order: "asc" },
+        })
+        .then(filterParentId);
     }
 
     return await prismaEntity
       .findMany({
         where: { ownerEmail: { equals: user.email } },
+        orderBy: { order: "asc" },
       })
       .then(filterParentId);
   };
@@ -48,6 +53,7 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
           { id: { equals: parentId.toString() } },
         ],
       },
+      orderBy: { order: "asc" },
     });
   };
 
