@@ -1,4 +1,4 @@
-import PillListItem, { ListItemType } from "@/components/ListItem";
+import PillListItem, { ListItemType } from "@/components/PillListItem";
 import { BaseDBType, CrudClientType, UserProfile } from "@/next_cst/types";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FaEdit, FaExternalLinkSquareAlt, FaTrash } from "react-icons/fa";
