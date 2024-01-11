@@ -29,7 +29,7 @@ export default function PillListOfItems<T extends BaseDBType>(
     ownerEmail: user?.email!,
   });
 
-  const { openModal, setModalChildComponent } = useModalStore();
+  const { openModal, closeModal, setModalChildComponent } = useModalStore();
   const query = useQuery<T[]>(
     // (typeOfListItem + parentId + (isGlobal?.toString() ?? "false")).toString(),
     typeOfListItem,
@@ -70,6 +70,9 @@ export default function PillListOfItems<T extends BaseDBType>(
   return (
     <>
       {isLoading && <p className="flash">Refreshing</p>}
+      <button type="button" onClick={() => refetch()}>
+        Refresh
+      </button>
       <ul>
         {data?.map((t) => (
           <li
@@ -109,7 +112,13 @@ export default function PillListOfItems<T extends BaseDBType>(
               style={iconStyle}
               onClick={() => {
                 setModalChildComponent(
-                  <TabbedEditComponent originalValue={t} apiEntity={apiRoute} />
+                  <TabbedEditComponent
+                    originalValue={t}
+                    apiEntity={apiRoute}
+                    onSave={() => {
+                      refetch().then(() => closeModal());
+                    }}
+                  />
                 );
                 openModal();
               }}

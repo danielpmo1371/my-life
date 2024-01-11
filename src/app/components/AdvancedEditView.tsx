@@ -5,9 +5,11 @@ import { Routes } from "../common/types";
 export default function AdvancedEditView({
   originalValue,
   apiEntity,
+  onSave,
 }: {
   originalValue: any;
   apiEntity: Routes;
+  onSave: () => void;
 }) {
   const { saveItem } = getApiCrudClientFor(apiEntity, true);
 
@@ -25,7 +27,10 @@ export default function AdvancedEditView({
 
     setLoading(true);
     console.log("saving");
-    saveItem(output).then(() => setLoading(false));
+    saveItem(output).then(() => {
+      setLoading(false);
+      onSave();
+    });
   };
 
   return (

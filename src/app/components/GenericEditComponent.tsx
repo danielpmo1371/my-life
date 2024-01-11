@@ -6,9 +6,11 @@ import { Routes } from "../common/types";
 const GenericEditComponent = ({
   originalValue,
   apiEntity,
+  onSave,
 }: {
   originalValue: any;
   apiEntity: Routes;
+  onSave: () => void;
 }) => {
   const { saveItem } = getApiCrudClientFor(apiEntity, true);
   const [formData, setFormData] = useState(originalValue);
@@ -20,12 +22,11 @@ const GenericEditComponent = ({
   };
 
   const handleSubmit = async () => {
-    // Call the update API (stub)
     try {
       setLoading(true);
       console.log("saving");
       saveItem(formData).then(() => setLoading(false));
-      //   onUpdate(); // Callback to inform parent component of update
+      onSave();
     } catch (error) {
       console.error("Error updating data:", error);
     }

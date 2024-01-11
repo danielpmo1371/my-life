@@ -7,9 +7,11 @@ import { Routes } from "../common/types";
 const TabbedEditComponent = ({
   originalValue,
   apiEntity,
+  onSave,
 }: {
   originalValue: any;
   apiEntity: Routes;
+  onSave: () => void;
 }) => {
   const [activeTab, setActiveTab] = useState("edit");
 
@@ -20,6 +22,7 @@ const TabbedEditComponent = ({
           <GenericEditComponent
             originalValue={originalValue}
             apiEntity={apiEntity}
+            onSave={onSave}
           />
         );
       case "advanced":
@@ -27,6 +30,7 @@ const TabbedEditComponent = ({
           <AdvancedEditView
             originalValue={originalValue}
             apiEntity={apiEntity}
+            onSave={onSave}
           />
         );
       default:
