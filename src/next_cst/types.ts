@@ -26,4 +26,6 @@ export type BaseDBType = {
   order: string;
   ownerEmail: string;
   parentId?: string;
+  createdAt?: Date;
+  modifiedAt?: Date;
 };

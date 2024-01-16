@@ -16,6 +16,8 @@ model projects {
   order    String
   ownerEmail String @default("no-email")
   parentId String @default("")
+  createdAt DateTime? 
+  modifiedAt DateTime? 
 }
 
 model apprequests {
@@ -24,6 +26,8 @@ model apprequests {
   order    String
   ownerEmail String @default("no-email")
   comment String @default("")
+  createdAt DateTime? 
+  modifiedAt DateTime? 
 }
 
 model todo {
@@ -32,6 +36,8 @@ model todo {
   order    String
   ownerEmail String @default("no-email")
   parentId String @default("")
+  createdAt DateTime? 
+  modifiedAt DateTime? 
 }
 
 model mantras {
@@ -40,6 +46,8 @@ model mantras {
   order    String
   ownerEmail String @default("no-email")
   parentId String @default("")
+  createdAt DateTime? 
+  modifiedAt DateTime? 
 }
 
 model highLevelGoals {
@@ -48,6 +56,8 @@ model highLevelGoals {
   order    String
   ownerEmail String @default("no-email")
   parentId String @default("")
+  createdAt DateTime? 
+  modifiedAt DateTime? 
 }
 
 model wishListItems {
@@ -56,6 +66,8 @@ model wishListItems {
   order    String
   ownerEmail String @default("no-email")
   parentId String @default("")
+  createdAt DateTime? 
+  modifiedAt DateTime? 
 }
 
 model doItNext {
@@ -64,4 +76,6 @@ model doItNext {
   order    String
   ownerEmail String
   todoId String    @default("")
+  createdAt DateTime? 
+  modifiedAt DateTime? 
 }

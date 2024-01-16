@@ -104,12 +104,18 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
 
       if (!user) return;
 
-      const res = await request.json();
-      if (!res.id) {
+      const dataFromRequest = await request.json();
+      if (!dataFromRequest.id) {
         try {
           await prisma.$connect();
 
-          await prismaEntity.create({ data: res });
+          await prismaEntity.create({
+            data: {
+              ...dataFromRequest,
+              createdAt: new Date(),
+              modifiedAt: new Date(),
+            },
+          });
 
           const dbResponse = await prismaEntity.findMany({
             where: { ownerEmail: { equals: user.email } },
@@ -121,17 +127,17 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
         } catch (e) {
           console.error(e);
         }
-        return Response.json({ res });
+        return Response.json({ res: dataFromRequest });
       }
       try {
         await prisma.$connect();
 
-        const objToSave = getObjectToSave(res);
+        const objToSave = getObjectToSave(dataFromRequest);
 
         const updateResponse = await prismaEntity.update({
           data: objToSave,
           where: {
-            id: res.id,
+            id: dataFromRequest.id,
           },
         });
 
@@ -147,7 +153,7 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
       } catch (e) {
         console.error(e);
       }
-      return Response.json({ res });
+      return Response.json({ res: dataFromRequest });
     },
     DELETE: async function (request: Request) {
       const user = await getUserFromSession();
@@ -179,7 +185,7 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
 
 function getObjectToSave<T extends { id?: string | undefined }>(newEntity: T) {
   let result;
-  result = { ...newEntity };
+  result = { ...newEntity, modifiedAt: new Date() };
   delete result.id;
   return result;
 }
