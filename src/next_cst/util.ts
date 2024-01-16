@@ -46,3 +46,20 @@ export function constructRelativeURL(basePath: string, queryParams: object) {
 
   return url;
 }
+
+export function isUTCToday(dateOrString: Date | string): boolean {
+  const now = new Date();
+
+  let inputDate;
+  if (typeof dateOrString === "string") {
+    inputDate = new Date(dateOrString);
+  } else {
+    inputDate = dateOrString;
+  }
+
+  return (
+    inputDate.getUTCFullYear() === now.getUTCFullYear() &&
+    inputDate.getUTCMonth() === now.getUTCMonth() &&
+    inputDate.getUTCDate() === now.getUTCDate()
+  );
+}
