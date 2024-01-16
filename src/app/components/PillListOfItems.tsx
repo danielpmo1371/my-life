@@ -15,12 +15,21 @@ type PillListOfItemsProps<T> = {
   typeOfListItem: ListItemType;
   parentId?: string;
   isGlobal?: boolean;
+  getDataCallBack?: () => Promise<any>;
 };
 
 export default function PillListOfItems<T extends BaseDBType>(
   props: PillListOfItemsProps<T>
 ) {
-  const { crudClient, user, state, typeOfListItem, parentId, isGlobal } = props;
+  const {
+    crudClient,
+    user,
+    state,
+    typeOfListItem,
+    parentId,
+    isGlobal,
+    getDataCallBack,
+  } = props;
   const { getData, saveItem, deleteItem, apiRoute } = crudClient;
 
   const [newItem, updateNewItem] = useState<BaseDBType>({
@@ -30,10 +39,12 @@ export default function PillListOfItems<T extends BaseDBType>(
   });
 
   const { openModal, closeModal, setModalChildComponent } = useModalStore();
+
+  const getDataFn = getDataCallBack ?? (() => getData(parentId, isGlobal));
   const query = useQuery<T[]>(
     // (typeOfListItem + parentId + (isGlobal?.toString() ?? "false")).toString(),
     typeOfListItem,
-    () => getData(parentId, isGlobal),
+    getDataFn,
     { staleTime: 60 * 1000, cacheTime: 60 * 1000 } // 1 minute
   );
   const { isLoading, isError, data, error, refetch } = query;
@@ -76,7 +87,7 @@ export default function PillListOfItems<T extends BaseDBType>(
       <ul>
         {data?.map((t) => (
           <li
-            key={t.order}
+            key={`${t.order}+${t.id}`}
             style={{
               display: "flex",
               flexDirection: "row",

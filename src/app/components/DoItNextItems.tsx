@@ -4,6 +4,7 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { getApiCrudClientFor } from "@/next_cst/crudClient";
 import PillListOfItems from "./PillListOfItems";
 import { Tooltip } from "react-tooltip";
+import { BaseDBType } from "@/next_cst/types";
 
 type DoItNextItem = {
   id?: string;
@@ -18,6 +19,12 @@ export default function DoItNextItems({ parentId }: { parentId?: string }) {
 
   const state = useState<DoItNextItem[]>([]);
   const crudClient = getApiCrudClientFor<DoItNextItem>("doItNextItems", true);
+
+  const getDataCallBack = () =>
+    crudClient.getData(parentId).then((x: BaseDBType[]) => {
+      console.log(x.filter((y) => y.createdAt));
+      return x;
+    });
 
   return (
     user && (
@@ -37,6 +44,7 @@ export default function DoItNextItems({ parentId }: { parentId?: string }) {
           state={state}
           typeOfListItem="doItNext"
           parentId={parentId}
+          getDataCallBack={getDataCallBack}
         />
       </div>
     )
