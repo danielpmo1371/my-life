@@ -78,4 +78,5 @@ model doItNext {
   todoId String    @default("")
   createdAt DateTime? 
   modifiedAt DateTime? 
+  parentId String @default("")
 }

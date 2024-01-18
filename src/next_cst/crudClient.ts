@@ -25,11 +25,16 @@ export function getApiCrudClientFor<T extends { id?: string }>(
     return await fetch(url).then(async (response) => {
       output(`response: ${stringifyJSON(response)}.`, enableOutputs);
       output(`parsing JSON.`, enableOutputs);
-      return await response.json().then((data) => {
-        output(`JSON received from ${stringifyJSON(data)}`, enableOutputs);
-        output(`setting data`, enableOutputs);
-        return data;
-      });
+      return await response
+        .json()
+        .then((data) => {
+          output(`JSON received from ${stringifyJSON(data)}`, enableOutputs);
+          output(`setting data`, enableOutputs);
+          return data;
+        })
+        .catch((e: Error) => {
+          if (e.message === "Unexpected end of JSON input") return [];
+        });
     });
   };
 
@@ -39,15 +44,19 @@ export function getApiCrudClientFor<T extends { id?: string }>(
     return await fetch(getProjectsUrl, {
       method: "POST",
       body: JSON.stringify(newEntity),
-    }).then(async (response) => {
-      output(`response: ${JSON.stringify(response)}.`, enableOutputs);
-      output(`parsing JSON.`, enableOutputs);
-      return await response.json().then((data) => {
-        output(`JSON received from ${JSON.stringify(data)}`, enableOutputs);
-        output(`setting data`, enableOutputs);
-        return data;
+    })
+      .then(async (response) => {
+        output(`response: ${JSON.stringify(response)}.`, enableOutputs);
+        output(`parsing JSON.`, enableOutputs);
+        return await response.json().then((data) => {
+          output(`JSON received from ${JSON.stringify(data)}`, enableOutputs);
+          output(`setting data`, enableOutputs);
+          return data;
+        });
+      })
+      .catch((e: Error) => {
+        if (e.message === "Unexpected end of JSON input") return [];
       });
-    });
   };
 
   const deleteItem = async function (entityToDelete: T) {
@@ -56,15 +65,19 @@ export function getApiCrudClientFor<T extends { id?: string }>(
     return await fetch(getProjectsUrl, {
       method: "DELETE",
       body: JSON.stringify(entityToDelete),
-    }).then(async (response) => {
-      output(`response: ${JSON.stringify(response)}.`, enableOutputs);
-      output(`parsing JSON.`, enableOutputs);
-      return await response.json().then((data) => {
-        output(`JSON received from ${JSON.stringify(data)}`, enableOutputs);
-        output(`setting data`, enableOutputs);
-        return data;
+    })
+      .then(async (response) => {
+        output(`response: ${JSON.stringify(response)}.`, enableOutputs);
+        output(`parsing JSON.`, enableOutputs);
+        return await response.json().then((data) => {
+          output(`JSON received from ${JSON.stringify(data)}`, enableOutputs);
+          output(`setting data`, enableOutputs);
+          return data;
+        });
+      })
+      .catch((e: Error) => {
+        if (e.message === "Unexpected end of JSON input") return [];
       });
-    });
   };
 
   return {
