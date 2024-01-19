@@ -16,6 +16,7 @@ type PillListOfItemsProps<T> = {
   parentId?: string;
   isGlobal?: boolean;
   getDataCallBack?: () => Promise<any>;
+  refetchSignal?: [boolean, Dispatch<SetStateAction<boolean>>];
 };
 
 export default function PillListOfItems<T extends BaseDBType>(
@@ -29,6 +30,7 @@ export default function PillListOfItems<T extends BaseDBType>(
     parentId,
     isGlobal,
     getDataCallBack,
+    refetchSignal,
   } = props;
   const { getData, saveItem, deleteItem, apiRoute } = crudClient;
 
@@ -77,6 +79,14 @@ export default function PillListOfItems<T extends BaseDBType>(
     updateNewItem({ ...newItem, title: "" });
     return result;
   }
+
+  const [isRefetchSignal, setRefetchSignal] = refetchSignal ?? [];
+
+  useEffect(() => {
+    if (!refetchSignal) return;
+    refetch();
+    setRefetchSignal!(false);
+  }, [refetch, isRefetchSignal, setRefetchSignal, refetchSignal]);
 
   return (
     <>
