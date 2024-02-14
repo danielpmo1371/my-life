@@ -13,7 +13,8 @@ const Home = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    height: "100vh",
+    height: "100%",
+    width: "100vw",
     flexDirection: "column",
   };
   const pillBtnStyle = { ...center, height: "30px", margin: "10px" };
@@ -23,23 +24,35 @@ const Home = () => {
       <h1>Brain context canvas</h1>
 
       {!user && (
-        <PillButton style={pillBtnStyle}>
-          <a href="/api/auth/login">Login</a>
-        </PillButton>
+        <a href="/api/auth/login">
+          <div style={center}>
+            <PillButton style={pillBtnStyle}>Login</PillButton>
+            <div>
+              <Image
+                src={homeImg}
+                alt="Canvas ilustration"
+                width={600}
+                height={600}
+              />
+            </div>
+          </div>
+        </a>
       )}
       {user && (
-        <PillButton style={pillBtnStyle}>
-          <Link href="/canvas">Open your canvas</Link>
-        </PillButton>
+        <Link href="/canvas">
+          <div style={center}>
+            <PillButton style={pillBtnStyle}>Open your canvas</PillButton>
+            <div className="home-container">
+              <Image
+                src={homeImg}
+                alt="Canvas ilustration"
+                width={600}
+                height={600}
+              />
+            </div>
+          </div>
+        </Link>
       )}
-      <div className="home-container">
-        <Image
-          src={homeImg}
-          alt="Canvas ilustration"
-          width={600}
-          height={600}
-        />
-      </div>
     </div>
   );
 };
