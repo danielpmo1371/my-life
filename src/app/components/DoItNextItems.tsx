@@ -14,7 +14,7 @@ type DoItNextItem = {
   order: string;
   ownerEmail: string;
   todoId?: string;
-};
+} & BaseDBType;
 
 export default function DoItNextItems({ parentId }: { parentId?: string }) {
   const { user } = useUser();
@@ -23,12 +23,12 @@ export default function DoItNextItems({ parentId }: { parentId?: string }) {
 
   const getTodayItems = () =>
     crudClient.getData(parentId).then((x: BaseDBType[]) => {
-      return x.filter((y) => isUTCToday(y.createdAt!));
+      return x.filter((y) => isUTCToday(y.modifiedAt!));
     });
 
   const getOlderItems = () =>
     crudClient.getData(parentId).then((x: BaseDBType[]) => {
-      return x.filter((y) => !isUTCToday(y.createdAt!));
+      return x.filter((y) => !isUTCToday(y.modifiedAt!));
     });
 
   // const todaysQuery = useQuery<DoItNextItem[]>(
@@ -63,6 +63,10 @@ export default function DoItNextItems({ parentId }: { parentId?: string }) {
     isOlder.current = false;
   };
 
+  const reActivate = (item: DoItNextItem) => {
+    crudClient.saveItem({ ...item, modifiedAt: new Date() });
+  };
+
   const state = useState<DoItNextItem[]>([]);
 
   return (
@@ -95,6 +99,18 @@ export default function DoItNextItems({ parentId }: { parentId?: string }) {
           parentId={parentId}
           getDataCallBack={getDataCallBack}
           refetchSignal={refetchSignal}
+          viewItemComponent={(item) => {
+            return (
+              <>
+                <h1>Do It Next</h1>
+                <hr></hr>
+                <p style={{ fontSize: "28px" }}>{item.title}</p>
+                <button type="button" onClick={() => reActivate(item)}>
+                  Re-activate
+                </button>
+              </>
+            );
+          }}
         />
       </div>
     )

@@ -18,13 +18,15 @@ export type ListItemType =
   | "apprequests"
   | "doItNext";
 
-function PillListItem(props: {
+function PillListItem<T>(props: {
   checked?: boolean;
   emoji?: string;
   title: string;
   type?: ListItemType;
+  item: T;
+  viewItemComponent?: (item: T) => JSX.Element;
 }) {
-  const { checked, emoji, title, type } = props;
+  const { checked, emoji, title, type, viewItemComponent, item } = props;
   const { setModalChildComponent, openModal } = useModalStore();
 
   const iconStyle = {
@@ -62,7 +64,11 @@ function PillListItem(props: {
         style={titleStyle}
         title={title}
         onClick={() => {
-          setModalChildComponent(<p style={{ fontSize: "28px" }}>{title}</p>);
+          setModalChildComponent(
+            viewItemComponent?.(item) ?? (
+              <p style={{ fontSize: "28px" }}>{title}</p>
+            )
+          );
           openModal();
         }}
       >

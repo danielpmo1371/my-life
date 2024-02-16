@@ -1,6 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { getSession } from "@auth0/nextjs-auth0";
 import { PrismaClient } from "@prisma/client";
+import { data } from "autoprefixer";
 import { NextRequest } from "next/server";
 
 export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
@@ -132,7 +133,11 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
       try {
         await prisma.$connect();
 
-        const objToSave = getObjectToSave(dataFromRequest);
+        const currentObjState = await prismaEntity.findUniqueOrThrow({
+          where: { id: dataFromRequest.id },
+        });
+
+        const objToSave = getObjectToSave(dataFromRequest, currentObjState);
 
         const updateResponse = await prismaEntity.update({
           data: objToSave,
@@ -183,9 +188,22 @@ export function getCrudRestApi(dbEntityName: keyof PrismaClient) {
   };
 }
 
-function getObjectToSave<T extends { id?: string | undefined }>(newEntity: T) {
+function getObjectToSave<
+  T extends { id?: string | undefined; modifiedAt: Date }
+>(newEntity: T, currentEntity: T) {
   let result;
-  result = { ...newEntity, modifiedAt: new Date() };
+
+  const isModifiedAtDeriberitalyChanged =
+    currentEntity.modifiedAt !== newEntity.modifiedAt;
+  const newDateProvided = newEntity.modifiedAt;
+  const updatedDateNow = new Date();
+
+  result = {
+    ...newEntity,
+    modifiedAt: isModifiedAtDeriberitalyChanged
+      ? newDateProvided
+      : updatedDateNow,
+  };
   delete result.id;
   return result;
 }

@@ -17,6 +17,7 @@ type PillListOfItemsProps<T> = {
   isGlobal?: boolean;
   getDataCallBack?: () => Promise<any>;
   refetchSignal?: [boolean, Dispatch<SetStateAction<boolean>>];
+  viewItemComponent?: (item: T) => JSX.Element;
 };
 
 export default function PillListOfItems<T extends BaseDBType>(
@@ -31,6 +32,7 @@ export default function PillListOfItems<T extends BaseDBType>(
     isGlobal,
     getDataCallBack,
     refetchSignal,
+    viewItemComponent,
   } = props;
   const { getData, saveItem, deleteItem, apiRoute } = crudClient;
 
@@ -108,6 +110,8 @@ export default function PillListOfItems<T extends BaseDBType>(
             <PillListItem
               title={`[${t.order}] ${t.title}`}
               type={typeOfListItem}
+              viewItemComponent={viewItemComponent}
+              item={t}
             />
             {(!deleteMutation.isLoading ||
               deleteMutation.variables?.id !== t.id) && (
